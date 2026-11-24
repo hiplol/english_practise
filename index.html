@@ -3,36 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EnglishPath — A2+ → C1 за 2.5 года</title>
+<title>EnglishPath Pro — A2+ → C1/C2 + IELTS</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   :root{
-    --bg:#000000;
-    --card:#0a0a0a;
-    --card2:#131313;
-    --card3:#1c1c1c;
-    --accent:#a3e635;
-    --accent2:#65a30d;
-    --accent-soft:rgba(163,230,53,.12);
-    --ok:#a3e635;
-    --bad:#ef4444;
-    --warn:#fbbf24;
-    --text:#ffffff;
-    --muted:#a1a1aa;
-    --border:#27272a;
+    --bg:#000;--card:#0a0a0a;--card2:#131313;--card3:#1c1c1c;
+    --accent:#a3e635;--accent2:#65a30d;--accent-soft:rgba(163,230,53,.12);
+    --ok:#a3e635;--bad:#ef4444;--warn:#fbbf24;--info:#60a5fa;
+    --text:#fff;--muted:#a1a1aa;--border:#27272a;
   }
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     background:radial-gradient(1200px 600px at 50% -200px,#142800 0%,#000 60%);
-    color:var(--text);min-height:100vh;line-height:1.5;
-  }
+    color:var(--text);min-height:100vh;line-height:1.5}
   .app{max-width:860px;margin:0 auto;padding-bottom:96px}
-
-  .topbar{
-    position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+  .topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
     padding:13px 18px;background:rgba(0,0,0,.85);backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--border);flex-wrap:wrap;
-  }
+    border-bottom:1px solid var(--border);flex-wrap:wrap}
   .logo{font-weight:800;font-size:17px;letter-spacing:-.3px;
     background:linear-gradient(90deg,var(--accent),var(--accent2));
     -webkit-background-clip:text;background-clip:text;color:transparent}
@@ -42,12 +28,13 @@
   .badge.lvl{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border:none}
   .badge.fire{color:var(--warn)}
   .badge.due{color:var(--accent)}
-
+  .badge.ielts{color:var(--info)}
   .main{padding:20px 18px}
   .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px}
   .card.flat{background:var(--card2)}
   .card.ok{border-color:rgba(163,230,53,.35)}
   .card.bad{border-color:rgba(239,68,68,.35)}
+  .card.info{border-color:rgba(96,165,250,.35)}
   h1{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
   h2{font-size:19px;font-weight:700;letter-spacing:-.3px;margin-bottom:10px}
   h3{font-size:15px;font-weight:700;margin-bottom:8px}
@@ -55,33 +42,29 @@
   .muted{color:var(--muted);font-size:13.5px}
   .big{font-size:34px;font-weight:800;letter-spacing:-1px;line-height:1.1}
   .tiny{font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;font-weight:800;color:var(--muted)}
-
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
     padding:13px 20px;border-radius:14px;border:none;cursor:pointer;
     font-size:15px;font-weight:800;font-family:inherit;
     background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;
-    transition:transform .12s ease,filter .12s ease;width:100%;
-  }
+    transition:transform .12s ease,filter .12s ease;width:100%}
   .btn:active{transform:scale(.97)}
   .btn.ghost{background:var(--card2);color:var(--text);border:1px solid var(--border)}
   .btn.danger{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff}
   .btn.ok{background:linear-gradient(135deg,#a3e635,#65a30d);color:#000}
+  .btn.ielts{background:linear-gradient(135deg,#60a5fa,#2563eb);color:#fff}
   .btn.small{width:auto;padding:9px 16px;font-size:13.5px;border-radius:11px}
   .btn:disabled{opacity:.45;cursor:default}
   .btn + .btn{margin-top:10px}
-
   .bar{height:10px;background:var(--card3);border-radius:999px;overflow:hidden}
   .bar > i{display:block;height:100%;border-radius:999px;
     background:linear-gradient(90deg,var(--accent),var(--accent2));
     transition:width .5s cubic-bezier(.4,0,.2,1)}
-
+  .bar.blue > i{background:linear-gradient(90deg,#60a5fa,#2563eb)}
   .ring-wrap{display:flex;align-items:center;gap:20px}
   .ring{position:relative;width:96px;height:96px;flex:none}
   .ring svg{transform:rotate(-90deg)}
   .ring .pct{position:absolute;inset:0;display:grid;place-items:center;
     font-weight:800;font-size:19px;letter-spacing:-.5px;color:var(--accent)}
-
   .grid{display:grid;gap:12px}
   .grid.g2{grid-template-columns:1fr 1fr}
   .grid.g3{grid-template-columns:repeat(3,1fr)}
@@ -89,7 +72,6 @@
   .stat{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:14px}
   .stat .v{font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--accent)}
   .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-top:2px}
-
   .options{display:flex;flex-direction:column;gap:9px;margin-top:14px}
   .opt{text-align:left;padding:14px 16px;border-radius:13px;cursor:pointer;
     background:var(--card2);border:1.5px solid var(--border);color:var(--text);
@@ -98,23 +80,19 @@
   .opt:disabled{cursor:default}
   .opt.correct{border-color:var(--accent);background:var(--accent-soft);color:#e0f7a8}
   .opt.wrong{border-color:var(--bad);background:rgba(239,68,68,.12);color:#ffb3b3}
-
   .fb{margin-top:14px;padding:13px 15px;border-radius:13px;font-size:14px;
     background:var(--card3);border-left:3px solid var(--accent);color:var(--text)}
   .fb.ok{border-left-color:var(--accent)}
   .fb.bad{border-left-color:var(--bad)}
-
+  .fb.info{border-left-color:var(--info)}
   .speak{background:var(--card3);border:1px solid var(--border);color:var(--accent);
     border-radius:11px;padding:7px 13px;cursor:pointer;font-size:15px;font-family:inherit;font-weight:600}
   .speak:active{transform:scale(.95)}
-
   .passage{background:var(--card2);border:1px solid var(--border);border-radius:14px;
     padding:16px;font-size:15px;line-height:1.7;color:#d4d4d8;margin-bottom:16px}
-
   .step-label{font-size:11.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
     color:var(--accent);margin-bottom:10px}
   .word-big{font-size:32px;font-weight:800;letter-spacing:-1px;margin-bottom:4px;color:var(--accent)}
-
   .vrow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
   .vrow:last-child{border-bottom:none}
   .vrow .en{font-weight:700;font-size:15px}
@@ -122,20 +100,17 @@
   .vrow .ex{color:#71717a;font-size:12.5px;font-style:italic;margin-top:2px}
   .vrow .mini{background:var(--card3);border:1px solid var(--border);color:var(--accent);
     border-radius:9px;padding:6px 9px;cursor:pointer;font-size:14px}
-
   textarea{width:100%;min-height:140px;background:var(--card2);border:1px solid var(--border);
     border-radius:13px;padding:14px;color:var(--text);font-family:inherit;font-size:15px;
     resize:vertical;line-height:1.6}
   textarea:focus{outline:none;border-color:var(--accent)}
-
   .nav{position:fixed;bottom:0;left:0;right:0;z-index:60;display:flex;
     background:rgba(0,0,0,.94);backdrop-filter:blur(16px);border-top:1px solid var(--border)}
   .nav button{flex:1;background:none;border:none;color:var(--muted);font-family:inherit;
     padding:11px 0 13px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;
-    font-size:10.5px;font-weight:700;letter-spacing:.3px;transition:color .15s}
-  .nav button .ic{font-size:18px;line-height:1}
+    font-size:10px;font-weight:700;letter-spacing:.2px;transition:color .15s}
+  .nav button .ic{font-size:17px;line-height:1}
   .nav button.active{color:var(--accent)}
-
   .center{text-align:center}
   .mt{margin-top:16px}.mb{margin-bottom:16px}
   .row{display:flex;gap:10px;align-items:center}
@@ -147,25 +122,20 @@
   .pill.hot{background:rgba(239,68,68,.15);color:#fca5a5}
   .pill.warm{background:rgba(251,191,36,.15);color:#fcd34d}
   .pill.cool{background:var(--accent-soft);color:var(--accent)}
-
+  .pill.info{background:rgba(96,165,250,.15);color:#93c5fd}
   .chart{display:flex;align-items:flex-end;gap:6px;height:110px;margin-top:14px}
   .chart > div{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
   .chart .b{width:100%;border-radius:6px;background:linear-gradient(180deg,var(--accent),var(--accent2))}
   .chart .l{font-size:10px;color:var(--muted)}
-
-  /* --- ФАЗЫ --- */
   .phase{margin-bottom:18px}
-  .phase-head{
-    display:flex;align-items:center;gap:12px;
+  .phase-head{display:flex;align-items:center;gap:12px;
     padding:14px 16px;border-radius:14px;margin-bottom:10px;
     background:linear-gradient(135deg,rgba(163,230,53,.1),rgba(101,163,13,.05));
-    border:1px solid var(--border);
-  }
+    border:1px solid var(--border)}
   .phase-head.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
   .phase-head .ph-title{font-weight:800;font-size:14.5px;color:var(--accent)}
   .phase-head .ph-goal{font-size:12px;color:var(--muted);margin-top:2px}
   .phase-head .ph-prog{font-size:12px;font-weight:800;color:var(--text)}
-
   .month-row{display:flex;align-items:center;gap:12px;padding:10px 12px;
     border-radius:10px;margin-bottom:6px;background:var(--card2);border:1px solid var(--border)}
   .month-row.current{border-color:var(--accent);background:var(--accent-soft)}
@@ -178,19 +148,38 @@
   .month-row .mg{font-size:11px;font-weight:700;color:var(--muted);min-width:36px;text-align:right}
   .month-row.current .mg{color:var(--accent)}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
-
-  .milestone{
-    display:flex;align-items:center;gap:10px;padding:10px 14px;margin:10px 0;
+  .milestone{display:flex;align-items:center;gap:10px;padding:10px 14px;margin:10px 0;
     border-radius:12px;background:var(--card2);border:1px dashed var(--border);
-    font-size:13px;color:var(--muted);
-  }
+    font-size:13px;color:var(--muted)}
   .milestone.reached{background:var(--accent-soft);border-style:solid;border-color:var(--accent);color:var(--accent);font-weight:700}
-
+  .milestone.blue{border-color:rgba(96,165,250,.5);color:#93c5fd}
+  .milestone.blue.reached{background:rgba(96,165,250,.15);border-color:var(--info)}
+  .recorder{background:var(--card2);border:1px solid var(--border);border-radius:14px;
+    padding:16px;text-align:center;margin-top:12px}
+  .rec-btn{width:72px;height:72px;border-radius:50%;border:none;cursor:pointer;
+    background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;font-size:24px;
+    display:inline-flex;align-items:center;justify-content:center;margin:8px}
+  .rec-btn.recording{animation:pulse 1s infinite}
+  .rec-btn:active{transform:scale(.95)}
+  .band{font-size:48px;font-weight:800;color:var(--info);letter-spacing:-2px;line-height:1}
+  .cue-card{background:linear-gradient(135deg,rgba(96,165,250,.1),rgba(37,99,235,.05));
+    border:1px solid rgba(96,165,250,.3);border-radius:14px;padding:20px;margin:12px 0}
+  .cue-card h4{color:var(--info);font-size:14px;margin-bottom:8px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+  .cue-card .main-q{font-size:17px;font-weight:700;color:var(--text);margin-bottom:10px}
+  .cue-card ul{list-style:none;padding-left:0;margin-top:8px}
+  .cue-card li{padding:4px 0 4px 18px;position:relative;color:var(--muted);font-size:14px}
+  .cue-card li:before{content:"•";position:absolute;left:4px;color:var(--info)}
+  .checklist{background:var(--card3);border-radius:10px;padding:12px;margin-top:10px}
+  .checklist label{display:flex;gap:8px;align-items:flex-start;padding:6px 0;font-size:13px;color:var(--text);cursor:pointer}
+  .checklist input{margin-top:3px;accent-color:var(--accent)}
+  .divider{height:1px;background:var(--border);margin:14px 0}
   @media(max-width:460px){
     .grid.g3,.grid.g4{grid-template-columns:1fr 1fr}
     .big{font-size:28px}
     .month-row .mn{min-width:40px;font-size:11px}
     .month-row .dots{gap:2px}
+    .nav button{font-size:9px}
+    .band{font-size:40px}
   }
 </style>
 </head>
@@ -199,10 +188,11 @@
   <header class="topbar" id="topbar"></header>
   <main class="main" id="main"></main>
   <nav class="nav" id="nav">
-    <button data-view="home"><span class="ic">🏠</span><span>Главная</span></button>
+    <button data-view="home"><span class="ic">🏠</span><span>Дом</span></button>
     <button data-view="map"><span class="ic">🗺️</span><span>План</span></button>
     <button data-view="deck"><span class="ic">🃏</span><span>Колода</span></button>
-    <button data-view="vocab"><span class="ic">📚</span><span>Словарь</span></button>
+    <button data-view="speaking"><span class="ic">🎤</span><span>Речь</span></button>
+    <button data-view="exam"><span class="ic">🎓</span><span>Экзамен</span></button>
     <button data-view="stats"><span class="ic">📊</span><span>Прогресс</span></button>
   </nav>
 </div>
@@ -212,13 +202,13 @@
    КОНСТАНТЫ
 ============================================================ */
 const LEVELS = ['A1','A2','B1','B2','C1','C2'];
-const TOTAL_DAYS = 480;            // 30 месяцев × 16 занятий
+const TOTAL_DAYS = 480;
 const DAYS_PER_MONTH = 16;
 const PHASE_COUNT = 3;
 const PHASE_MONTHS = 10;
-const PHASE_DAYS = PHASE_MONTHS * DAYS_PER_MONTH; // 160
+const PHASE_DAYS = PHASE_MONTHS * DAYS_PER_MONTH;
 const TARGET_LEVEL = 'C1';
-const STORAGE_KEY = 'englishpath_v3_lime';
+const STORAGE_KEY = 'englishpath_v4_pro';
 const DAY_MS = 86400000;
 
 const $ = s => document.querySelector(s);
@@ -226,18 +216,18 @@ function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a
 function shuffle(arr,rnd){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function today(){return new Date().toISOString().slice(0,10)}
-function speak(text){
+function speak(text, rate){
   if(!('speechSynthesis' in window))return;
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang='en-US'; u.rate=0.9;
+  u.lang='en-US'; u.rate = rate || 0.9;
   const v = speechSynthesis.getVoices().find(x=>x.lang.startsWith('en'));
   if(v) u.voice = v;
   speechSynthesis.speak(u);
 }
 
 /* ============================================================
-   БАЗА КОНТЕНТА
+   БАЗА КОНТЕНТА (расширенная)
 ============================================================ */
 const DATA = {
 A1:{
@@ -281,7 +271,9 @@ listening:[
 writing:[{prompt:'Расскажите о себе: имя, возраст, откуда вы, чем занимаетесь.',
  hints:'My name is… I am … years old. I am from… I work / I study…',
  sample:'My name is Anna. I am twenty-five years old. I am from Moscow. I work in an office. In my free time I like reading books and walking in the park.',
- checklist:['Используйте I am','Проверьте артикли','Не менее 30 слов']}]
+ checklist:['Используйте I am','Проверьте артикли','Не менее 30 слов']}],
+phrasal:[],
+collocations:[]
 },
 
 A2:{
@@ -352,6 +344,18 @@ writing:[
  hints:'Hi…, How are you? Would you like to…? We could… Let me know…',
  sample:'Hi Alex, How are you? I hope everything is fine. Would you like to come to my place this weekend? We could watch a film and cook something nice. My sister will be here too. Let me know if you can come. Best wishes, Kate.',
  checklist:['Приветствие и подпись','Would you like to…?','Не менее 40 слов']}
+],
+phrasal:[
+{en:'to get up',ru:'вставать',ex:'I get up at seven every morning.'},
+{en:'to look after',ru:'заботиться о',ex:'She looks after her younger brother.'},
+{en:'to find out',ru:'выяснять',ex:'We need to find out what happened.'},
+{en:'to turn on',ru:'включать',ex:'Can you turn on the light, please?'}
+],
+collocations:[
+{en:'to take a shower',ru:'принимать душ',ex:'I take a shower before breakfast.'},
+{en:'to make a mistake',ru:'делать ошибку',ex:'Everyone makes mistakes sometimes.'},
+{en:'to have breakfast',ru:'завтракать',ex:'We have breakfast at eight.'},
+{en:'to catch a bus',ru:'успеть на автобус',ex:'I need to catch a bus to work.'}
 ]
 },
 
@@ -423,6 +427,25 @@ writing:[
  hints:'Last year I… I made a mistake… I realized that… Since then…',
  sample:'Last year I forgot to back up an important project and lost two days of work. At first I was angry with myself, but then I realized that the mistake had taught me something useful. Since then I always keep several copies of my files and plan my time more carefully. Now I see that failures can be the best teachers.',
  checklist:['Past Perfect для предшествия','Since then','Не менее 60 слов']}
+],
+phrasal:[
+{en:'to give up',ru:'сдаваться, бросать',ex:'He gave up smoking last year.'},
+{en:'to look forward to',ru:'с нетерпением ждать',ex:'I look forward to meeting you.'},
+{en:'to take part in',ru:'принимать участие',ex:'She took part in the competition.'},
+{en:'to put up with',ru:'мириться с',ex:'I can’t put up with this noise.'},
+{en:'to come across',ru:'натолкнуться на',ex:'I came across an interesting article.'},
+{en:'to run out of',ru:'закончиться, исчерпать',ex:'We ran out of milk this morning.'},
+{en:'to bring up',ru:'воспитывать; поднимать тему',ex:'She was brought up in Canada.'},
+{en:'to deal with',ru:'иметь дело с',ex:'We have to deal with this problem.'}
+],
+collocations:[
+{en:'to make progress',ru:'делать успехи',ex:'You’re making great progress.'},
+{en:'to keep in touch',ru:'поддерживать связь',ex:'Let’s keep in touch after the course.'},
+{en:'to take care of',ru:'заботиться о',ex:'She takes care of her elderly parents.'},
+{en:'to pay a visit',ru:'нанести визит',ex:'We paid a visit to the museum.'},
+{en:'to get in touch',ru:'связаться',ex:'Please get in touch when you arrive.'},
+{en:'to have a good time',ru:'хорошо проводить время',ex:'We had a really good time at the party.'},
+{en:'to tell a story',ru:'рассказывать историю',ex:'Grandma told us a story before bed.'}
 ]
 },
 
@@ -494,6 +517,47 @@ writing:[
  hints:'It is often argued that… While I accept that…, I would argue… Furthermore… On balance…',
  sample:'It is often argued that technology makes us less sociable. While I accept that smartphones can distract people during conversations, I would argue that the opposite is often true. Social media allows us to stay in touch with friends who live far away, and video calls make regular contact possible across continents. Furthermore, online communities help people with niche interests find each other. On balance, technology seems to change the form of communication rather than destroy it.',
  checklist:['While I accept…, I would argue…','On balance','Не менее 100 слов']}
+],
+phrasal:[
+{en:'to bring about',ru:'вызывать, приводить к',ex:'The policy brought about significant changes.'},
+{en:'to carry out',ru:'проводить, выполнять',ex:'They carried out a survey of 500 students.'},
+{en:'to come up with',ru:'придумать, предложить',ex:'She came up with an elegant solution.'},
+{en:'to get rid of',ru:'избавиться от',ex:'We need to get rid of these outdated rules.'},
+{en:'to look into',ru:'исследовать, изучать',ex:'The committee will look into the matter.'},
+{en:'to point out',ru:'указывать на',ex:'He pointed out several flaws in the argument.'},
+{en:'to put off',ru:'откладывать',ex:'They put off the decision until next week.'},
+{en:'to set up',ru:'основывать, учреждать',ex:'She set up her own company in 2018.'},
+{en:'to take on',ru:'брать на себя',ex:'He took on too many responsibilities.'},
+{en:'to turn out',ru:'оказываться',ex:'The experiment turned out to be inconclusive.'}
+],
+collocations:[
+{en:'to make a decision',ru:'принимать решение',ex:'We need to make a decision by Friday.'},
+{en:'to take responsibility',ru:'брать ответственность',ex:'Someone must take responsibility for this.'},
+{en:'to raise awareness',ru:'повышать осведомлённость',ex:'The campaign aims to raise awareness of mental health.'},
+{en:'to draw a conclusion',ru:'делать вывод',ex:'We can draw several conclusions from the data.'},
+{en:'to conduct research',ru:'проводить исследование',ex:'She conducted research on language acquisition.'},
+{en:'to meet the deadline',ru:'уложиться в срок',ex:'The team worked hard to meet the deadline.'},
+{en:'to pay attention',ru:'обращать внимание',ex:'Pay attention to the details in the contract.'},
+{en:'to take measures',ru:'принимать меры',ex:'The government took measures to reduce pollution.'},
+{en:'to express an opinion',ru:'выражать мнение',ex:'Everyone is free to express an opinion.'},
+{en:'to face a challenge',ru:'сталкиваться с вызовом',ex:'The company faces a serious challenge.'}
+],
+academic:[
+{en:'hypothesis',ru:'гипотеза',ex:'The data supports the original hypothesis.'},
+{en:'to indicate',ru:'указывать на',ex:'The results indicate a strong trend.'},
+{en:'significant',ru:'значительный',ex:'There was a significant difference between the groups.'},
+{en:'to demonstrate',ru:'демонстрировать',ex:'The study demonstrates the value of early intervention.'},
+{en:'approach',ru:'подход',ex:'This paper adopts a qualitative approach.'},
+{en:'to establish',ru:'устанавливать',ex:'The authors establish a clear link between the variables.'},
+{en:'framework',ru:'структура, концепция',ex:'The analysis is based on a theoretical framework.'},
+{en:'to assess',ru:'оценивать',ex:'We need to assess the impact of the policy.'},
+{en:'to analyse',ru:'анализировать',ex:'The researchers analysed the data carefully.'},
+{en:'implication',ru:'следствие, значение',ex:'The implications of these findings are far-reaching.'},
+{en:'to correlate',ru:'коррелировать',ex:'Income correlates strongly with education level.'},
+{en:'empirical',ru:'эмпирический',ex:'There is little empirical evidence for this claim.'},
+{en:'to constitute',ru:'составлять',ex:'These factors constitute a serious risk.'},
+{en:'to derive',ru:'выводить, получать',ex:'The conclusions are derived from the data.'},
+{en:'to evaluate',ru:'оценивать',ex:'We evaluated the effectiveness of the programme.'}
 ]
 },
 
@@ -544,7 +608,12 @@ reading:[
  text:'To read slowly is not the same as to read passively. The slow reader is not one who fails to move quickly through a text, but one who declines to treat the text as a vehicle for information alone. What is sacrificed in speed is recovered in texture: the sentence is allowed to resonate, the ambiguity is permitted to stand rather than being resolved at the earliest opportunity. In an age that equates comprehension with rapid extraction, such patience can look like inefficiency. Yet the works we return to are rarely those we consumed most quickly; they are the ones that resisted us, that demanded a second and a third reading before yielding their meaning.',
  qs:[{q:'How does the author define a slow reader?',opts:['Someone who reads slowly','Someone who treats text as more than information','Someone who cannot read fast','Someone who reads only classics'],a:1},
      {q:'What is gained by slowness?',opts:['More information','Speed','Texture and ambiguity','Nothing'],a:2},
-     {q:'Which works do we return to?',opts:['The easiest ones','The shortest ones','The ones that resisted us','The most popular'],a:2}]}
+     {q:'Which works do we return to?',opts:['The easiest ones','The shortest ones','The ones that resisted us','The most popular'],a:2}]},
+{title:'The Nature of Scientific Progress',
+ text:'The popular image of science is one of steady accumulation: each generation adds a brick to the edifice erected by its predecessors. Historians of science, however, have long argued that the reality is messier. Thomas Kuhn famously proposed that scientific fields alternate between periods of "normal science", in which researchers work within an accepted paradigm, and revolutionary episodes in which that paradigm is overturned. Critics of Kuhn have pointed out that his account underestimates the continuity between paradigms and overstates the suddenness of revolutions. Yet even those who reject his specific claims tend to accept the broader point: scientific knowledge does not advance by simple addition but through the complex negotiation of evidence, theory and community consensus.',
+ qs:[{q:'What is the popular image of scientific progress?',opts:['Revolutionary','Steady accumulation','Chaotic','Irrelevant'],a:1},
+     {q:'What did Kuhn propose?',opts:['Science is always steady','Science alternates between normal and revolutionary periods','Science is meaningless','Science has no paradigms'],a:1},
+     {q:'What do critics of Kuhn accept?',opts:['His specific claims','That science is simple','That knowledge advances through complex negotiation','That revolutions do not exist'],a:2}]}
 ],
 listening:[
 {en:'Under no circumstances should the alarm be disabled.',ru:'Ни при каких обстоятельствах нельзя отключать сигнализацию.'},
@@ -565,6 +634,47 @@ writing:[
  hints:'Over the past decade… This shift has been driven by… The implications are twofold… It remains to be seen…',
  sample:'Over the past decade, remote work has moved from a marginal arrangement to a mainstream practice. This shift has been driven by faster connectivity, the availability of collaborative software and, more recently, by necessity. The implications are twofold. On the one hand, employees gain flexibility and avoid lengthy commutes, which can improve well-being and productivity. On the other hand, the boundary between professional and private life becomes blurred, and younger employees may miss the informal mentoring that offices provide. Companies, in turn, face the challenge of maintaining a coherent culture across dispersed teams. It remains to be seen whether hybrid models will resolve these tensions or merely redistribute them.',
  checklist:['The implications are twofold','It remains to be seen','Не менее 140 слов']}
+],
+phrasal:[
+{en:'to account for',ru:'объяснять; составлять',ex:'How do you account for the discrepancy?'},
+{en:'to adhere to',ru:'придерживаться',ex:'All staff must adhere to the code of conduct.'},
+{en:'to embark on',ru:'начинать (дело)',ex:'She embarked on a new research project.'},
+{en:'to stem from',ru:'происходить из',ex:'His problems stem from a lack of confidence.'},
+{en:'to single out',ru:'выделять',ex:'The report singles out three key areas.'},
+{en:'to phase out',ru:'постепенно отменять',ex:'The government plans to phase out the tax.'},
+{en:'to weigh up',ru:'взвешивать (за и против)',ex:'We need to weigh up the pros and cons.'},
+{en:'to boil down to',ru:'сводиться к',ex:'The issue boils down to a lack of funding.'},
+{en:'to touch on',ru:'затрагивать (тему)',ex:'The lecture touched on several key themes.'},
+{en:'to zero in on',ru:'сосредоточиться на',ex:'Let’s zero in on the main problem.'}
+],
+collocations:[
+{en:'to reach a conclusion',ru:'приходить к выводу',ex:'The researchers reached a surprising conclusion.'},
+{en:'to play a role',ru:'играть роль',ex:'Genetics plays a significant role in the disease.'},
+{en:'to pose a threat',ru:'представлять угрозу',ex:'Climate change poses a serious threat.'},
+{en:'to gain insight',ru:'получать представление',ex:'The interviews provided valuable insight.'},
+{en:'to make a contribution',ru:'вносить вклад',ex:'She made a major contribution to the field.'},
+{en:'to take into account',ru:'учитывать',ex:'We must take all factors into account.'},
+{en:'to shed light on',ru:'проливать свет на',ex:'The study sheds light on the underlying causes.'},
+{en:'to give rise to',ru:'вызывать, порождать',ex:'The discovery gave rise to a new field of study.'},
+{en:'to bear in mind',ru:'иметь в виду',ex:'Bear in mind that the sample is small.'},
+{en:'to pave the way',ru:'прокладывать путь',ex:'The research paved the way for future studies.'}
+],
+academic:[
+{en:'paradigm',ru:'парадигма',ex:'The discovery led to a paradigm shift.'},
+{en:'to underpin',ru:'лежать в основе',ex:'The theory is underpinned by extensive data.'},
+{en:'to delineate',ru:'очерчивать, определять',ex:'The study delineates the boundaries of the field.'},
+{en:'to corroborate',ru:'подтверждать',ex:'Independent studies corroborate these findings.'},
+{en:'to posit',ru:'предполагать',ex:'The author posits a causal relationship.'},
+{en:'to infer',ru:'делать вывод',ex:'We can infer that the effect is lasting.'},
+{en:'to synthesise',ru:'синтезировать',ex:'The review synthesises findings from 40 studies.'},
+{en:'to substantiate',ru:'обосновывать',ex:'The claim is substantiated by empirical data.'},
+{en:'to delineate',ru:'определять, очерчивать',ex:'The report delineates the main challenges.'},
+{en:'to attribute',ru:'приписывать',ex:'The decline can be attributed to several factors.'},
+{en:'to account for',ru:'объяснять',ex:'How can we account for this discrepancy?'},
+{en:'to corroborate',ru:'подтверждать',ex:'The testimony was corroborated by two witnesses.'},
+{en:'to contextualise',ru:'помещать в контекст',ex:'The findings must be contextualised historically.'},
+{en:'to operationalise',ru:'операционализировать',ex:'The team operationalised the theoretical construct.'},
+{en:'to replicate',ru:'воспроизводить',ex:'The results have yet to be replicated.'}
 ]
 },
 
@@ -584,7 +694,9 @@ vocab:[
 {en:'to juxtapose',ru:'сопоставлять',ex:'The film juxtaposes wealth and destitution.'},
 {en:'perfunctory',ru:'поверхностный, формальный',ex:'He gave the report a perfunctory glance.'},
 {en:'to galvanize',ru:'побуждать к действию',ex:'The speech galvanized the entire movement.'},
-{en:'ineffable',ru:'невыразимый',ex:'There was an ineffable sadness in his voice.'}
+{en:'ineffable',ru:'невыразимый',ex:'There was an ineffable sadness in his voice.'},
+{en:'to obfuscate',ru:'запутывать, затемнять',ex:'The report seems designed to obfuscate rather than clarify.'},
+{en:'ostentatious',ru:'показной, вычурный',ex:'The ostentatious display of wealth embarrassed everyone.'}
 ],
 reading:[{title:'On Silence',
  text:'Silence has long been regarded as the mere absence of sound, a deficiency to be remedied. Yet composers and monks alike have insisted that it possesses a positive character of its own. In the pauses between notes, music acquires its shape; in the intervals of speech, meaning is allowed to settle. What the modern world has largely forfeited is not quiet as such — one may still find it in forests and cathedrals — but the willingness to endure it. We fill every gap with commentary, as though an unanswered question were an intolerable debt. It is perhaps for this reason that silence, when it does occur, strikes us less as peace than as accusation.',
@@ -598,8 +710,126 @@ listening:[
 writing:[{prompt:'Эссе (180–220 слов) о роли случайности в успехе.',
  hints:'The relationship between… is seldom straightforward. It is tempting to… Yet… One might argue…',
  sample:'The relationship between merit and success is seldom as straightforward as we like to imagine. It is tempting to attribute achievement to talent and effort alone, and to treat luck as a comforting fiction for those who have failed. Yet a moment’s reflection suggests otherwise. The circumstances of birth, the accident of timing, the chance encounter that alters a career — these are not marginal factors but structural ones.',
- checklist:['It is tempting to… Yet…','One might argue…','Не менее 180 слов']}]
+ checklist:['It is tempting to… Yet…','One might argue…','Не менее 180 слов']}],
+phrasal:[
+{en:'to gloss over',ru:'обходить молчанием',ex:'The report glosses over the real difficulties.'},
+{en:'to pare down',ru:'сокращать, урезать',ex:'We need to pare down the budget.'},
+{en:'to eke out',ru:'с трудом добывать; растягивать',ex:'They eked out a living from the land.'},
+{en:'to rein in',ru:'обуздывать',ex:'The government tried to rein in spending.'},
+{en:'to bear out',ru:'подтверждать',ex:'The evidence bears out his claim.'}
+],
+collocations:[
+{en:'to cast doubt on',ru:'ставить под сомнение',ex:'The findings cast doubt on the official account.'},
+{en:'to draw a distinction',ru:'проводить различие',ex:'We must draw a distinction between the two cases.'},
+{en:'to hold sway',ru:'господствовать',ex:'This view still holds sway in some circles.'},
+{en:'to take stock',ru:'оценивать ситуацию',ex:'It is time to take stock of our progress.'},
+{en:'to strike a balance',ru:'находить баланс',ex:'We need to strike a balance between work and life.'}
+],
+academic:[
+{en:'to nuance',ru:'придавать нюансы',ex:'The author nuances the traditional account.'},
+{en:'to interrogate',ru:'подвергать критическому анализу',ex:'The paper interrogates the assumptions behind the policy.'},
+{en:'to destabilise',ru:'дестабилизировать',ex:'The findings destabilise the received wisdom.'},
+{en:'to reify',ru:'овеществлять',ex:'The theory risks reifying social categories.'},
+{en:'to elide',ru:'опускать, сглаживать',ex:'The analysis elides important regional differences.'},
+{en:'to foreground',ru:'выдвигать на первый план',ex:'The study foregrounds the voices of marginalised groups.'},
+{en:'to contest',ru:'оспаривать',ex:'The claim has been contested by several scholars.'},
+{en:'to delineate',ru:'очерчивать',ex:'The author delineates the scope of the inquiry.'}
+]
 }
+};
+
+/* ============================================================
+   IELTS CONTENT
+============================================================ */
+const IELTS = {
+  readingPassages:[
+    {
+      title:'The Decline of the Bee',
+      text:'The decline of bee populations across Europe and North America has been attributed to a combination of factors: the widespread use of neonicotinoid pesticides, the loss of wildflower habitats, the spread of the parasitic Varroa mite, and the increasing uniformity of agricultural landscapes. Each factor alone would be serious; together they appear to reinforce one another in ways that are still poorly understood. What makes the situation particularly urgent is the role that bees play in pollination: roughly one third of the food we eat depends, directly or indirectly, on insect pollinators. Economists have estimated the annual value of this service at several hundred billion dollars. Yet the policies enacted so far have been piecemeal, and there is little sign that the underlying causes are being addressed at the scale required.',
+      questions:[
+        {q:'Which of the following is NOT mentioned as a cause of bee decline?',opts:['Pesticides','Habitat loss','Climate change','Parasites'],a:2},
+        {q:'What makes the situation urgent?',opts:['Bees are expensive','Bees pollinate a third of our food','Bees are beautiful','Bees are rare'],a:1},
+        {q:'What is the author’s view of current policies?',opts:['They are sufficient','They are piecemeal','They are excellent','They are unnecessary'],a:1}
+      ]
+    },
+    {
+      title:'The Origins of Writing',
+      text:'Writing was invented independently in at least three places: Mesopotamia around 3200 BCE, China around 1200 BCE, and Mesoamerica around 600 BCE. In each case, the earliest texts are administrative rather than literary: lists of goods, records of transactions, tallies of livestock. This has led some scholars to argue that writing emerged not from a desire to record speech but from the practical demands of increasingly complex economies. The idea that writing "represents" language, in the sense that a reader can reconstruct the exact words of a speaker, is a relatively late development. For most of its history, writing has been a technology of accounting, not of expression.',
+      questions:[
+        {q:'How many places did writing develop independently?',opts:['One','Two','At least three','Many'],a:2},
+        {q:'What were the earliest texts mainly about?',opts:['Poetry','Religion','Administration','History'],a:2},
+        {q:'What does the author suggest about writing?',opts:['It was invented for literature','It was primarily for accounting','It is useless','It is recent'],a:1}
+      ]
+    }
+  ],
+  listeningSets:[
+    {
+      title:'Lecture: Introduction to Cognitive Science',
+      transcript:'Good morning, everyone. Today I want to introduce the field of cognitive science, which emerged in the 1950s as an interdisciplinary project bringing together psychology, linguistics, computer science, philosophy and neuroscience. The central hypothesis of the field, at least in its early form, was that mental processes could be understood as computations — that is, as operations on representations. This "computational theory of mind" was enormously productive, and it gave rise to the field of artificial intelligence. However, from the 1980s onwards, critics began to argue that it neglected the role of the body, of emotion, and of social context in shaping cognition. These debates are still very much alive today.',
+      questions:[
+        {q:'When did cognitive science emerge?',opts:['1920s','1950s','1980s','2000s'],a:1},
+        {q:'What was the central hypothesis of early cognitive science?',opts:['Mind is a computation','Mind is spiritual','Mind is social','Mind is biological'],a:0},
+        {q:'What did critics argue from the 1980s?',opts:['Computational theory was perfect','Body, emotion, and social context were neglected','Cognitive science should be abolished','AI is dangerous'],a:1}
+      ]
+    },
+    {
+      title:'Lecture: The Economics of Inequality',
+      transcript:'One of the most influential recent works on inequality is Thomas Piketty’s "Capital in the Twenty-First Century", published in 2013. Piketty’s central claim is that, when the rate of return on capital exceeds the rate of economic growth — which he argues has been the historical norm — wealth tends to concentrate in the hands of those who already own it. This is not, he insists, a law of nature; it is a tendency that can be offset by policy, for example through progressive taxation or investment in education. But the tendency is powerful, and it helps to explain why inequality has risen sharply in many developed countries since the 1980s.',
+      questions:[
+        {q:'Who wrote "Capital in the Twenty-First Century"?',opts:['Adam Smith','Thomas Piketty','Karl Marx','John Keynes'],a:1},
+        {q:'What is Piketty’s central claim?',opts:['Growth always wins','Wealth tends to concentrate','Inequality is natural','Capital is bad'],a:1},
+        {q:'How can the tendency be offset?',opts:['By doing nothing','By progressive taxation and education','By lowering taxes','By printing money'],a:1}
+      ]
+    }
+  ],
+  writingTask1:[
+    {prompt:'The chart below shows the percentage of households with internet access in three countries (A, B, C) between 2000 and 2020. Country A: 20% → 95%. Country B: 15% → 85%. Country C: 5% → 60%. Summarise the information by selecting and reporting the main features, and make comparisons where relevant (150+ words).',
+     checklist:['Introduction: paraphrase the prompt','Overview: 1-2 main trends','Body: compare countries','Use percentages and years','Не менее 150 слов']},
+    {prompt:'The bar chart shows the number of international students enrolled in four countries (USA, UK, Australia, Canada) in 2010 and 2020. USA: 700k → 950k. UK: 400k → 550k. Australia: 250k → 450k. Canada: 200k → 400k. Summarise the information (150+ words).',
+     checklist:['Introduction','Overview','Compare 2010 vs 2020','Highlight the largest change','Не менее 150 слов']}
+  ],
+  writingTask2:[
+    {prompt:'Some people believe that universities should focus on academic subjects, while others think they should prepare students for practical jobs. Discuss both views and give your own opinion. (250+ words)',
+     checklist:['Introduction with clear position','Body 1: academic view','Body 2: practical view','Your opinion','Conclusion','Cohesive devices','Не менее 250 слов']},
+    {prompt:'In many countries, the gap between the rich and the poor is widening. What are the causes of this problem and what measures could be taken to solve it? (250+ words)',
+     checklist:['Introduction','Causes (2-3)','Solutions (2-3)','Logical structure','Не менее 250 слов']},
+    {prompt:'Some argue that technology has made our lives more complex rather than simpler. To what extent do you agree? (250+ words)',
+     checklist:['Clear position','Examples','Counter-argument','Conclusion','Не менее 250 слов']},
+    {prompt:'Many young people today prefer to start their own business rather than work for a company. What are the advantages and disadvantages of this trend? (250+ words)',
+     checklist:['Introduction','Advantages','Disadvantages','Balanced conclusion','Не менее 250 слов']},
+    {prompt:'International tourism has grown enormously in recent decades. Do the benefits outweigh the drawbacks? (250+ words)',
+     checklist:['Clear position','Economic benefits','Cultural/environmental costs','Conclusion','Не менее 250 слов']}
+  ],
+  speakingPart1:[
+    {q:'Where are you from, and what do you like most about your hometown?'},
+    {q:'Do you work or are you a student?'},
+    {q:'How often do you read books, and what kind do you prefer?'},
+    {q:'What do you usually do at weekends?'},
+    {q:'Do you enjoy travelling? Why or why not?'},
+    {q:'How important is it to learn foreign languages in your country?'},
+    {q:'Do you prefer spending time with friends or alone?'},
+    {q:'What kind of music do you listen to?'},
+    {q:'Has your daily routine changed in the last few years?'},
+    {q:'What would you like to change about your city?'}
+  ],
+  speakingPart2:[
+    {q:'Describe a book that had a significant impact on you.',
+     points:['What the book was','When and why you read it','What it was about','Why it had an impact on you'],
+     tip:'Говорите 1.5–2 минуты без остановки. Используйте структуру: что → когда → о чём → почему.'},
+    {q:'Describe a person who has influenced you.',
+     points:['Who the person is','How you know them','What qualities they have','Why they influenced you'],
+     tip:'Добавьте конкретные примеры — это повышает балл за fluency и coherence.'},
+    {q:'Describe a difficult decision you had to make.',
+     points:['What the decision was','When you made it','What the alternatives were','Why it was difficult and what the outcome was'],
+     tip:'Используйте narrative tenses: past simple, past continuous, past perfect.'}
+  ],
+  speakingPart3:[
+    {q:'Do you think traditional books will be replaced by e-books? Why or why not?'},
+    {q:'How has technology changed the way people communicate?'},
+    {q:'Should governments invest more in public libraries?'},
+    {q:'What role does education play in reducing inequality?'},
+    {q:'Do you think it is important for young people to travel abroad?'}
+  ]
 };
 
 /* ============================================================
@@ -638,7 +868,11 @@ function defaultState(){
     level:null, startLevel:null, day:0, xp:0, streak:0, lastDay:null,
     testScore:null, startedAt:null,
     cards:{}, weak:{}, intro:{},
-    history:[], achievements:[]
+    history:[], achievements:[],
+    ieltsTarget:7.0,
+    ieltsScores:{listening:0, reading:0, writing:0, speaking:0},
+    ieltsHistory:[],
+    speakingVisited:[]
   };
 }
 let S = loadState();
@@ -648,6 +882,9 @@ function loadState(){
     if(raw){
       const s = Object.assign(defaultState(), JSON.parse(raw));
       if(!s.startLevel && s.level) s.startLevel = s.level;
+      if(!s.ieltsScores) s.ieltsScores = {listening:0,reading:0,writing:0,speaking:0};
+      if(!s.ieltsHistory) s.ieltsHistory = [];
+      if(!s.speakingVisited) s.speakingVisited = [];
       return s;
     }
   }catch(e){}
@@ -663,17 +900,40 @@ function getPhaseLevels(){
   const phase = Math.min(PHASE_COUNT - 1, Math.floor(S.day / PHASE_DAYS));
   const pIdx = Math.min(LEVELS.length - 1, startIdx + phase);
   const sIdx = Math.min(LEVELS.length - 1, pIdx + 1);
-  return {
-    primary: LEVELS[pIdx],
-    secondary: LEVELS[sIdx],
-    phase
-  };
+  return {primary: LEVELS[pIdx], secondary: LEVELS[sIdx], phase};
 }
 function currentMilestoneLevel(){
   const startIdx = LEVELS.indexOf(S.startLevel || S.level || 'A2');
   const phase = Math.min(PHASE_COUNT - 1, Math.floor(S.day / PHASE_DAYS));
   const tIdx = Math.min(LEVELS.length - 1, startIdx + phase + 1);
   return LEVELS[tIdx];
+}
+
+/* ============================================================
+   IELTS BAND ESTIMATION
+============================================================ */
+function estimateBand(section, pct){
+  if(pct === null || pct === undefined) return 0;
+  if(section === 'listening' || section === 'reading'){
+    if(pct >= 0.95) return 9.0;
+    if(pct >= 0.90) return 8.5;
+    if(pct >= 0.85) return 8.0;
+    if(pct >= 0.80) return 7.5;
+    if(pct >= 0.72) return 7.0;
+    if(pct >= 0.65) return 6.5;
+    if(pct >= 0.55) return 6.0;
+    if(pct >= 0.45) return 5.5;
+    if(pct >= 0.35) return 5.0;
+    return 4.5;
+  }
+  return 0;
+}
+function overallBand(){
+  const sc = S.ieltsScores;
+  const scores = [sc.listening, sc.reading, sc.writing, sc.speaking].filter(x => x > 0);
+  if(!scores.length) return 0;
+  const avg = scores.reduce((a,b)=>a+b,0)/scores.length;
+  return Math.round(avg * 2) / 2;
 }
 
 /* ============================================================
@@ -689,17 +949,22 @@ function render(){
   document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('active', b.dataset.view === view));
   const main = document.getElementById('main');
   main.innerHTML = '';
-  ({home:renderHome, test:renderTest, lesson:renderLesson, map:renderMap,
+  const handlers = {
+    home:renderHome, test:renderTest, lesson:renderLesson, map:renderMap,
     deck:renderDeck, vocab:renderVocab, stats:renderStats, settings:renderSettings,
-    result:()=>{}, checkpoint:()=>{}}[view] || renderHome)(main);
+    speaking:renderSpeaking, exam:renderExam, result:()=>{}, checkpoint:()=>{}
+  };
+  (handlers[view] || renderHome)(main);
 }
 
 function topbarHTML(){
   const lvl = S.level ? `<span class="badge lvl">${S.level} → ${TARGET_LEVEL}</span>` : `<span class="badge">уровень не определён</span>`;
   const fire = S.streak > 0 ? `<span class="badge fire">🔥 ${S.streak}</span>` : '';
   const xp = S.xp > 0 ? `<span class="badge">⚡ ${S.xp}</span>` : '';
+  const band = overallBand();
+  const ielts = band > 0 ? `<span class="badge ielts">🎓 ${band.toFixed(1)}</span>` : '';
   const due = S.level ? (()=>{const d=dueCards(99).length; return d>0?`<span class="badge due">🃏 ${d}</span>`:''})() : '';
-  return `<div class="logo">EnglishPath</div><div class="spacer"></div>${xp}${due}${fire}${lvl}<button class="badge" style="cursor:pointer;border:none" data-action="open-settings">⚙️</button>`;
+  return `<div class="logo">EnglishPath Pro</div><div class="spacer"></div>${xp}${due}${ielts}${fire}${lvl}<button class="badge" style="cursor:pointer;border:none" data-action="open-settings">⚙️</button>`;
 }
 
 /* ============================================================
@@ -710,12 +975,13 @@ function renderHome(main){
   const {primary, secondary, phase} = getPhaseLevels();
   const pct = Math.round(S.day / TOTAL_DAYS * 100);
   const month = Math.min(30, Math.floor(S.day / DAYS_PER_MONTH) + 1);
-  const milestone = currentMilestoneLevel();
   const circ = 2 * Math.PI * 42;
   const off = circ * (1 - S.day / TOTAL_DAYS);
   const due = dueCards(99);
   const weak = topWeak(3);
-  const phaseNames = ['A2+ → B1', 'B1 → B2', 'B2 → C1'];
+  const phaseNames = ['A2+ → B1', 'B1 → B2', 'B2 → C1 (экзамен)'];
+  const band = overallBand();
+  const sc = S.ieltsScores;
 
   main.innerHTML = `
     <div class="card">
@@ -732,7 +998,7 @@ function renderHome(main){
           <div class="pct">${pct}%</div>
         </div>
         <div style="flex:1">
-          <div class="tiny">Путь к ${TARGET_LEVEL}</div>
+          <div class="tiny">Путь к ${TARGET_LEVEL} + IELTS</div>
           <div class="big">${S.startLevel || S.level} → ${TARGET_LEVEL}</div>
           <div class="muted" style="margin-top:4px">Месяц ${month} из 30 · занятие ${Math.min(S.day+1, TOTAL_DAYS)} из ${TOTAL_DAYS}</div>
           <div class="muted" style="margin-top:2px">Фаза ${phase+1}/3 · ${phaseNames[phase]}</div>
@@ -740,6 +1006,34 @@ function renderHome(main){
       </div>
       <div class="bar mt" style="margin-top:16px"><i style="width:${pct}%"></i></div>
     </div>
+
+    ${band > 0 ? `
+    <div class="card info">
+      <div class="between">
+        <div>
+          <div class="tiny" style="color:var(--info)">Текущий IELTS (оценка)</div>
+          <div class="band" style="font-size:38px">${band.toFixed(1)}</div>
+          <div class="muted">Цель: ${S.ieltsTarget.toFixed(1)}</div>
+        </div>
+        <div style="text-align:right;font-size:12px;line-height:1.8">
+          <div>🎧 L: <b>${sc.listening > 0 ? sc.listening.toFixed(1) : '—'}</b></div>
+          <div>📖 R: <b>${sc.reading > 0 ? sc.reading.toFixed(1) : '—'}</b></div>
+          <div>✍️ W: <b>${sc.writing > 0 ? sc.writing.toFixed(1) : '—'}</b></div>
+          <div>🎤 S: <b>${sc.speaking > 0 ? sc.speaking.toFixed(1) : '—'}</b></div>
+        </div>
+      </div>
+      <button class="btn ielts mt" data-action="go-exam">Открыть IELTS-подготовку →</button>
+    </div>` : `
+    <div class="card info">
+      <div class="between">
+        <div>
+          <div class="tiny" style="color:var(--info)">IELTS-подготовка</div>
+          <h3 style="margin:4px 0">Целевой балл: ${S.ieltsTarget.toFixed(1)}</h3>
+          <p class="muted">Пройдите мини-тесты по 4 секциям, чтобы увидеть текущий уровень</p>
+        </div>
+      </div>
+      <button class="btn ielts mt" data-action="go-exam">Начать подготовку →</button>
+    </div>`}
 
     ${S.day >= TOTAL_DAYS ? completionCard() : `
     <div class="card">
@@ -763,6 +1057,7 @@ function renderHome(main){
           <h3 style="margin:0">🃏 К повторению: ${due.length}</h3>
           <p class="muted" style="margin-top:4px">SRS подберёт карточки, которые пора освежить</p>
         </div>
+        <button class="btn small ghost" data-action="review-due">Повторить</button>
       </div>
     </div>` : ''}
 
@@ -772,7 +1067,6 @@ function renderHome(main){
       <div class="tag-row">
         ${weak.map(w => `<span class="pill hot">${esc(w.topic)} · ${w.acc}%</span>`).join('')}
       </div>
-      <p class="muted mt" style="margin-top:10px">Эти темы чаще появляются в занятиях.</p>
     </div>` : ''}
 
     <div class="grid g4">
@@ -783,16 +1077,24 @@ function renderHome(main){
     </div>
 
     <div class="card flat">
-      <h3>Вехи</h3>
+      <h3>Вехи (язык + экзамен)</h3>
       <div class="milestone ${S.day >= PHASE_DAYS ? 'reached':''}">
-        🎯 <b>Месяц 10</b> · ${S.day >= PHASE_DAYS ? 'B1 достигнут' : 'цель — B1'}
+        🎯 <b>Месяц 10</b> · B1 · IELTS ~5.0–5.5
       </div>
       <div class="milestone ${S.day >= PHASE_DAYS*2 ? 'reached':''}">
-        🎯 <b>Месяц 20</b> · ${S.day >= PHASE_DAYS*2 ? 'B2 достигнут' : 'цель — B2'}
+        🎯 <b>Месяц 20</b> · B2 · IELTS ~6.0–6.5
       </div>
-      <div class="milestone ${S.day >= TOTAL_DAYS ? 'reached':''}">
-        🏆 <b>Месяц 30</b> · ${S.day >= TOTAL_DAYS ? 'C1 достигнут' : 'цель — C1'}
+      <div class="milestone blue ${S.day >= TOTAL_DAYS ? 'reached':''}">
+        🏆 <b>Месяц 30</b> · C1 · IELTS 7.0+ → поступление
       </div>
+    </div>
+
+    <div class="card flat">
+      <h3>💡 Что делать помимо приложения</h3>
+      <p style="margin-bottom:6px">✓ Читайте реальные тексты (Guardian, Economist, научные статьи) — 30 мин/день</p>
+      <p style="margin-bottom:6px">✓ Говорите с людьми (italki, Cambly, разговорные клубы) — 2 раза в неделю</p>
+      <p style="margin-bottom:6px">✓ Проходите настоящие пробные IELTS (Cambridge IELTS 1–18)</p>
+      <p>✓ Смотрите лекции (Coursera, edX, TED) для academic listening</p>
     </div>
   `;
 }
@@ -801,17 +1103,19 @@ function renderWelcome(main){
   main.innerHTML = `
     <div class="card center">
       <div style="font-size:56px;line-height:1;margin-bottom:12px">🎯</div>
-      <h1>EnglishPath</h1>
-      <p class="mb">Тест из 24 вопросов · около 6 минут. Определит стартовый уровень и построит программу <b>A2+ → C1</b> на 2.5 года.</p>
+      <h1>EnglishPath Pro</h1>
+      <p class="mb">Тест из 24 вопросов · около 6 минут. Определит стартовый уровень и построит программу <b>A2+ → C1</b> с подготовкой к <b>IELTS</b>.</p>
       <button class="btn" data-action="start-test">Начать тест</button>
     </div>
     <div class="card">
       <h3>Что внутри</h3>
       <p>🃏 <b>SRS</b> — интервальные повторения (SM-2)</p>
       <p>🎯 <b>Адаптивность</b> — слабые темы возвращаются чаще</p>
-      <p>📅 <b>30 месяцев</b> · 3 фазы: A2+→B1 (10 мес), B1→B2 (10 мес), B2→C1 (10 мес)</p>
+      <p>📚 <b>Phrasal verbs, collocations, AWL</b> — то, что отличает C1</p>
+      <p>🎤 <b>Speaking-модуль</b> — запись, IELTS-промпты, образцы</p>
+      <p>🎓 <b>IELTS-симулятор</b> — оценка band score по 4 секциям</p>
+      <p>✍️ <b>Academic writing</b> — Task 1 и Task 2 с чек-листами</p>
       <p>📋 <b>Ежемесячный чек-поинт</b> для проверки прогресса</p>
-      <p>📤 <b>Экспорт</b> карточек в Anki (CSV)</p>
     </div>`;
 }
 
@@ -820,9 +1124,10 @@ function lessonPreview(day, dueCount){
   if(dueCount) parts.push(`${dueCount} карточек SRS`);
   parts.push('3 задания грамматики');
   parts.push('2–3 новых слова');
+  parts.push(day % 3 === 0 ? 'phrasal verbs / collocations' : '');
   parts.push(day % 2 === 0 ? 'чтение' : 'аудирование');
   if(day % 4 === 3) parts.push('письмо');
-  return parts.join(' · ') + '.';
+  return parts.filter(Boolean).join(' · ') + '.';
 }
 
 function completionCard(){
@@ -899,6 +1204,8 @@ function finishTest(){
   S.day = 0; S.xp = 0; S.streak = 0; S.lastDay = null;
   S.startedAt = today();
   S.history = []; S.cards = {}; S.weak = {}; S.intro = {}; S.achievements = [];
+  S.ieltsScores = {listening:0,reading:0,writing:0,speaking:0};
+  S.ieltsHistory = [];
   saveState();
   T = null;
 
@@ -908,8 +1215,8 @@ function finishTest(){
       <div class="tiny">Ваш стартовый уровень</div>
       <div class="big" style="font-size:56px;margin:6px 0;color:var(--accent)">${level}</div>
       <p class="mb">Правильных ответов: ${totalCorrect} из 24</p>
-      <p class="mb">Цель: <b style="color:var(--accent)">${TARGET_LEVEL}</b> за 2.5 года.<br>
-        Программа: 30 месяцев · 480 занятий · 3 фазы.</p>
+      <p class="mb">Цель: <b style="color:var(--accent)">${TARGET_LEVEL}</b> + IELTS 6.5–7.5+<br>
+        Программа: 30 месяцев · 480 занятий · 3 фазы + экзамен.</p>
       <button class="btn mt" data-action="go-home">Начать программу</button>
     </div>`;
 }
@@ -918,7 +1225,7 @@ function finishTest(){
    ГЕНЕРАЦИЯ УРОКА
 ============================================================ */
 function buildLesson(){
-  const {primary, secondary, phase} = getPhaseLevels();
+  const {primary, secondary} = getPhaseLevels();
   const P1 = DATA[primary];
   const P2 = DATA[secondary];
   const day = S.day;
@@ -926,7 +1233,6 @@ function buildLesson(){
   const items = [];
   const pick = (prob=0.35) => rnd() < prob ? P2 : P1;
 
-  // SRS (до 6 карточек)
   dueCards(6).forEach(([word]) => {
     const info = findWord(word, primary) || findWord(word, secondary) || findWord(word);
     if(info){
@@ -937,7 +1243,18 @@ function buildLesson(){
     }
   });
 
-  // Грамматика 3 задания
+  // Phrasal verbs / collocations every 3rd day
+  if(day % 3 === 0){
+    const all = [...(P1.phrasal||[]), ...(P2.phrasal||[]), ...(P1.collocations||[]), ...(P2.collocations||[])];
+    if(all.length > 0){
+      const chosen = shuffle(all, rnd).slice(0, 2);
+      chosen.forEach(w => {
+        items.push({type:'intro', data:w, label:'Phrasal verb / Collocation'});
+      });
+    }
+  }
+
+  // Grammar 3
   const gPool = [];
   P1.grammar.forEach(g => gPool.push({...g, w: topicWeight(g.topic), src:'primary'}));
   P2.grammar.forEach(g => gPool.push({...g, w: topicWeight(g.topic) * 0.5, src:'secondary'}));
@@ -948,7 +1265,7 @@ function buildLesson(){
     items.push({type:'grammar', data:{q:g.q, opts, a:opts.indexOf(correct), topic:g.topic}});
   });
 
-  // Новые слова 2–3
+  // New words
   const newWords1 = P1.vocab.filter(w => !S.intro[w.en]);
   const newWords2 = P2.vocab.filter(w => !S.intro[w.en]);
   const newPool = [...shuffle(newWords1, rnd).slice(0,2), ...shuffle(newWords2, rnd).slice(0,1)];
@@ -957,7 +1274,7 @@ function buildLesson(){
     items.push({type:'intro', data:w});
   });
 
-  // Чтение / аудирование
+  // Reading / listening
   if(day % 2 === 0){
     const src = pick();
     const r = src.reading[Math.floor(rnd() * src.reading.length)];
@@ -973,7 +1290,6 @@ function buildLesson(){
     });
   }
 
-  // Письмо раз в 4 дня
   if(day % 4 === 3){
     const src = pick(0.4);
     const w = src.writing[Math.floor(rnd() * src.writing.length)];
@@ -987,8 +1303,13 @@ function findWord(en, lvl){
   const levels = lvl ? [lvl] : LEVELS;
   for(const l of levels){
     if(!DATA[l]) continue;
-    const w = DATA[l].vocab.find(x => x.en === en);
-    if(w) return w;
+    const sections = ['vocab','phrasal','collocations','academic'];
+    for(const sec of sections){
+      if(DATA[l][sec]){
+        const w = DATA[l][sec].find(x => x.en === en);
+        if(w) return w;
+      }
+    }
   }
   return null;
 }
@@ -1087,7 +1408,7 @@ function renderLesson(main){
   else if(item.type === 'intro'){
     body = `
       <div class="card">
-        <div class="step-label">Новое слово</div>
+        <div class="step-label">${esc(item.label || 'Новое слово')}</div>
         <div class="row" style="gap:12px;align-items:center">
           <div class="word-big">${esc(item.data.en)}</div>
           <button class="speak" data-action="speak" data-text="${esc(item.data.en)}">🔊</button>
@@ -1162,14 +1483,22 @@ function checkWriting(){
   const text = box.value.trim();
   const issues = [];
   const wc = text.split(/\s+/).filter(Boolean).length;
-  if(wc < 20) issues.push('Слишком короткий текст — не менее 30 слов.');
+  if(wc < 30) issues.push('Слишком короткий текст — не менее 30 слов.');
   if(/[а-яА-Я]/.test(text)) issues.push('Обнаружены русские буквы.');
   if(/\bi am agree\b/i.test(text)) issues.push('«I am agree» → «I agree».');
   if(/\bmore better\b/i.test(text)) issues.push('«more better» → «better».');
   if(/\bdon’t has\b|\bdon't has\b/i.test(text)) issues.push('«don’t has» → «doesn’t have».');
   if(/\binformations\b/i.test(text)) issues.push('«informations» → «information».');
+  if(/\badvices\b/i.test(text)) issues.push('«advices» → «advice» (неисчисляемое).');
+  if(/\bpeoples\b/i.test(text)) issues.push('«peoples» → «people».');
+  if(/\bthe most easiest\b/i.test(text)) issues.push('«the most easiest» → «the easiest».');
+  if(/\bhow much people\b/i.test(text)) issues.push('«how much people» → «how many people».');
   if(!/[.?!]/.test(text)) issues.push('Добавьте знаки препинания.');
   if(!/\b(I|we|they|he|she|it|you)\b/i.test(text)) issues.push('Проверьте наличие подлежащего.');
+  // Cohesion check
+  const connectives = ['however','therefore','moreover','furthermore','nevertheless','consequently','thus','in addition','on the other hand','in contrast','as a result'];
+  const hasConnective = connectives.some(c => text.toLowerCase().includes(c));
+  if(wc >= 60 && !hasConnective) issues.push('Для связности добавьте linking words (however, therefore, moreover и т.п.).');
 
   const item = L.items[L.idx];
   const html = issues.length === 0
@@ -1178,7 +1507,7 @@ function checkWriting(){
         <div style="margin-top:8px;color:var(--muted)">
           ${item.data.checklist.map(c => '✓ ' + esc(c)).join('<br>')}
         </div>
-        <p class="muted" style="margin-top:8px">Для глубокой проверки — Grammarly / LanguageTool.</p>
+        <p class="muted" style="margin-top:8px">Для глубокой проверки — Grammarly / LanguageTool / ChatGPT.</p>
       </div>`
     : `<div class="fb bad" style="margin-top:12px">
         <b>Замечания:</b>
@@ -1242,7 +1571,7 @@ function answerReading(qi, oi){
 function nextStep(){ L.idx++; render(); }
 
 /* ============================================================
-   ЗАВЕРШЕНИЕ
+   ЗАВЕРШЕНИЕ УРОКА
 ============================================================ */
 function finishLesson(){
   const total = L.correct + L.wrong;
@@ -1259,7 +1588,6 @@ function finishLesson(){
     S.lastDay = t;
   }
 
-  // Обновляем S.level по достижении вехи
   const milestone = Math.min(PHASE_COUNT, Math.floor(S.day / PHASE_DAYS));
   if(milestone > 0){
     const startIdx = LEVELS.indexOf(S.startLevel);
@@ -1276,8 +1604,6 @@ function finishLesson(){
   saveState();
 
   const finished = S.day >= TOTAL_DAYS;
-  const {phase} = getPhaseLevels();
-  const phaseNames = ['A2+ → B1', 'B1 → B2', 'B2 → C1'];
   const justReachedPhase = S.day === PHASE_DAYS || S.day === PHASE_DAYS * 2;
 
   document.getElementById('main').innerHTML = `
@@ -1290,10 +1616,11 @@ function finishLesson(){
         <div class="stat"><div class="v">${S.streak}</div><div class="k">серия</div></div>
         <div class="stat"><div class="v">${Object.keys(S.cards).length}</div><div class="k">карточек</div></div>
       </div>
-      ${justReachedPhase ? `<p class="mb">Поздравляем! Вы завершили фазу ${phase}<br>(${phaseNames[phase-1]}).</p>` : ''}
+      ${justReachedPhase ? `<p class="mb">Поздравляем! Вы завершили фазу ${S.day === PHASE_DAYS ? '1 (A2+→B1)' : '2 (B1→B2)'}.</p>` : ''}
       ${finished
-        ? `<p class="mb">Вы прошли всю программу A2+ → C1!</p>
-           <button class="btn" data-action="retake-test">Пройти тест заново</button>`
+        ? `<p class="mb">Вы прошли всю программу! Теперь — интенсивная подготовка к IELTS.</p>
+           <button class="btn ielts" data-action="go-exam">Перейти к IELTS →</button>
+           <button class="btn ghost mt" data-action="retake-test">Пройти тест заново</button>`
         : `<button class="btn" data-action="go-home">На главную</button>
            <button class="btn ghost" data-action="start-lesson">Ещё занятие</button>`}
     </div>`;
@@ -1308,9 +1635,14 @@ function checkAchievements(){
     {id:'streak_7', cond:S.streak >= 7},
     {id:'streak_30', cond:S.streak >= 30},
     {id:'cards_50', cond:Object.keys(S.cards).length >= 50},
+    {id:'cards_200', cond:Object.keys(S.cards).length >= 200},
     {id:'phase_b1', cond:S.day >= PHASE_DAYS},
     {id:'phase_b2', cond:S.day >= PHASE_DAYS * 2},
-    {id:'phase_c1', cond:S.day >= TOTAL_DAYS}
+    {id:'phase_c1', cond:S.day >= TOTAL_DAYS},
+    {id:'ielts_6', cond:overallBand() >= 6.0},
+    {id:'ielts_65', cond:overallBand() >= 6.5},
+    {id:'ielts_7', cond:overallBand() >= 7.0},
+    {id:'ielts_75', cond:overallBand() >= 7.5}
   ];
   list.forEach(a => {
     if(a.cond && !S.achievements.includes(a.id)) S.achievements.push(a.id);
@@ -1318,15 +1650,15 @@ function checkAchievements(){
 }
 
 /* ============================================================
-   КАРТА (30 месяцев, 3 фазы)
+   КАРТА
 ============================================================ */
 function renderMap(main){
   if(!S.level){ renderWelcome(main); return; }
-  const phaseNames = ['A2+ → B1', 'B1 → B2', 'B2 → C1'];
-  const phaseGoal = ['B1', 'B2', 'C1'];
+  const phaseNames = ['A2+ → B1', 'B1 → B2', 'B2 → C1 + экзамен'];
+  const phaseGoal = ['B1 · IELTS ~5.0', 'B2 · IELTS ~6.0', 'C1 · IELTS 7.0+'];
 
   let html = `<div class="card"><h2>Программа · 30 месяцев</h2>
-    <p>480 занятий. Три фазы по 10 месяцев. Каждое занятие — SRS, грамматика, слова, чтение/аудио, письмо.</p></div>`;
+    <p>480 занятий. Три фазы по 10 месяцев. Фаза 3 включает интенсивную IELTS-подготовку.</p></div>`;
 
   for(let p = 0; p < 3; p++){
     const phStart = p * PHASE_DAYS;
@@ -1340,7 +1672,7 @@ function renderMap(main){
       <div class="phase-head ${isActive?'active':''}">
         <div style="flex:1">
           <div class="ph-title">Фаза ${p+1} · ${phaseNames[p]}</div>
-          <div class="ph-goal">Месяцы ${p*10+1}–${(p+1)*10} · цель ${phaseGoal[p]}</div>
+          <div class="ph-goal">Месяцы ${p*10+1}–${(p+1)*10} · ${phaseGoal[p]}</div>
         </div>
         <div class="ph-prog">${isDone?'✓':phasePct + '%'}</div>
       </div>`;
@@ -1366,6 +1698,12 @@ function renderMap(main){
     }
     html += `</div>`;
   }
+
+  html += `<div class="card info">
+    <h3>🎓 В фазе 3 (месяцы 21–30)</h3>
+    <p>Добавляются: IELTS-симулятор, speaking-практика, academic writing, разбор экзаменационных стратегий.</p>
+    <button class="btn ielts mt" data-action="go-exam">Открыть IELTS-подготовку →</button>
+  </div>`;
   main.innerHTML = html;
 }
 
@@ -1439,7 +1777,13 @@ function startReviewDue(){
   due.forEach(([word]) => {
     const info = findWord(word);
     if(!info) return;
-    const src = findWord(word, 'B1') ? DATA.B1 : findWord(word, 'B2') ? DATA.B2 : DATA.C1;
+    let src = DATA.B2;
+    if(findWord(word, 'A1')) src = DATA.A1;
+    else if(findWord(word, 'A2')) src = DATA.A2;
+    else if(findWord(word, 'B1')) src = DATA.B1;
+    else if(findWord(word, 'B2')) src = DATA.B2;
+    else if(findWord(word, 'C1')) src = DATA.C1;
+    else if(findWord(word, 'C2')) src = DATA.C2;
     const dist = shuffle(src.vocab.filter(x => x.ru !== info.ru), rnd).slice(0,3).map(x=>x.ru);
     const opts = shuffle([info.ru, ...dist], rnd);
     items.push({type:'srs', data:{...info, word}, opts, a:opts.indexOf(info.ru)});
@@ -1455,14 +1799,22 @@ function startReviewDue(){
 function renderVocab(main){
   if(!S.level){ renderWelcome(main); return; }
   const {primary, secondary} = getPhaseLevels();
-  const words = [...DATA[primary].vocab, ...(secondary !== primary ? DATA[secondary].vocab : [])];
-  main.innerHTML = `
-    <div class="card">
-      <h2>Словарь текущей фазы</h2>
-      <p>${words.length} слов · ${primary}${secondary !== primary ? ' + ' + secondary : ''}</p>
-    </div>
-    <div class="card">
-      ${words.map(w => {
+  const sections = [
+    {key:'vocab', name:'Слова'},
+    {key:'phrasal', name:'Phrasal verbs'},
+    {key:'collocations', name:'Collocations'},
+    {key:'academic', name:'Academic (AWL)'}
+  ];
+  let html = `<div class="card">
+    <h2>Словарь · ${primary}${secondary !== primary ? ' + ' + secondary : ''}</h2>
+    <p>Разделы: слова, фразовые глаголы, коллокации, академическая лексика.</p>
+  </div>`;
+  for(const sec of sections){
+    const items = [...(DATA[primary][sec.key]||[]), ...(secondary !== primary && DATA[secondary][sec.key] ? DATA[secondary][sec.key] : [])];
+    if(!items.length) continue;
+    html += `<div class="card">
+      <h3>${sec.name} · ${items.length}</h3>
+      ${items.map(w => {
         const inDeck = !!S.cards[w.en];
         return `<div class="vrow">
           <div style="flex:1">
@@ -1474,6 +1826,8 @@ function renderVocab(main){
         </div>`;
       }).join('')}
     </div>`;
+  }
+  main.innerHTML = html;
 }
 
 /* ============================================================
@@ -1488,25 +1842,49 @@ function renderStats(main){
   const mature = cards.filter(c => c.interval >= 21).length;
   const young = cards.filter(c => c.interval > 0 && c.interval < 21).length;
   const fresh = cards.filter(c => c.reps === 0).length;
+  const band = overallBand();
   const achievements = [
     {id:'first_lesson', name:'Первый шаг', icon:'👣'},
     {id:'streak_3', name:'3 дня', icon:'🔥'},
     {id:'streak_7', name:'Неделя', icon:'💪'},
     {id:'streak_30', name:'Месяц', icon:'🏅'},
     {id:'cards_50', name:'50 карточек', icon:'🃏'},
-    {id:'phase_b1', name:'B1 достигнут', icon:'🟢'},
-    {id:'phase_b2', name:'B2 достигнут', icon:'🔵'},
-    {id:'phase_c1', name:'C1 достигнут', icon:'🟣'}
+    {id:'cards_200', name:'200 карточек', icon:'🎴'},
+    {id:'phase_b1', name:'B1', icon:'🟢'},
+    {id:'phase_b2', name:'B2', icon:'🔵'},
+    {id:'phase_c1', name:'C1', icon:'🟣'},
+    {id:'ielts_6', name:'IELTS 6.0', icon:'🎓'},
+    {id:'ielts_65', name:'IELTS 6.5', icon:'🎓'},
+    {id:'ielts_7', name:'IELTS 7.0', icon:'🏆'},
+    {id:'ielts_75', name:'IELTS 7.5', icon:'👑'}
   ];
 
   main.innerHTML = `
     <div class="card">
-      <h2>Прогресс</h2>
+      <h2>Прогресс программы</h2>
       <div class="bar mb"><i style="width:${pct}%"></i></div>
       <div class="between"><span class="muted">Пройдено</span><b>${S.day} / ${TOTAL_DAYS}</b></div>
       <div class="between" style="margin-top:6px"><span class="muted">Осталось</span><b>${TOTAL_DAYS - S.day}</b></div>
       ${S.startedAt ? `<div class="between" style="margin-top:6px"><span class="muted">Старт</span><b>${S.startedAt}</b></div>`:''}
     </div>
+
+    ${band > 0 ? `
+    <div class="card info">
+      <h3>🎓 IELTS</h3>
+      <div class="between">
+        <div>
+          <div class="band">${band.toFixed(1)}</div>
+          <div class="muted">Цель: ${S.ieltsTarget.toFixed(1)}</div>
+        </div>
+        <div style="text-align:right;font-size:12px;line-height:1.8">
+          <div>L: <b>${S.ieltsScores.listening > 0 ? S.ieltsScores.listening.toFixed(1) : '—'}</b></div>
+          <div>R: <b>${S.ieltsScores.reading > 0 ? S.ieltsScores.reading.toFixed(1) : '—'}</b></div>
+          <div>W: <b>${S.ieltsScores.writing > 0 ? S.ieltsScores.writing.toFixed(1) : '—'}</b></div>
+          <div>S: <b>${S.ieltsScores.speaking > 0 ? S.ieltsScores.speaking.toFixed(1) : '—'}</b></div>
+        </div>
+      </div>
+      <button class="btn ielts small mt" data-action="go-exam">Открыть IELTS →</button>
+    </div>` : ''}
 
     <div class="grid g4">
       <div class="stat"><div class="v">${S.xp}</div><div class="k">XP</div></div>
@@ -1561,6 +1939,13 @@ function renderSettings(main){
       <button class="btn ghost small" data-action="go-home">← Назад</button>
     </div>
     <div class="card">
+      <h3>IELTS целевой балл</h3>
+      <p class="muted mb">Для поступления в большинство вузов нужно 6.5–7.5.</p>
+      <div class="options">
+        ${[6.0, 6.5, 7.0, 7.5, 8.0].map(b => `<button class="opt ${S.ieltsTarget === b ? 'correct' : ''}" data-action="set-target" data-band="${b}">${b.toFixed(1)}</button>`).join('')}
+      </div>
+    </div>
+    <div class="card">
       <h3>Экспорт</h3>
       <button class="btn ghost small" data-action="export-anki">📤 Экспорт колоды в Anki (CSV)</button>
     </div>
@@ -1572,7 +1957,7 @@ function renderSettings(main){
 }
 
 /* ============================================================
-   ЕЖЕМЕСЯЧНЫЙ ЧЕК-ПОИНТ
+   CHECKPOINT
 ============================================================ */
 function startCheckpoint(){
   if(!S.level){ go('test'); return; }
@@ -1586,6 +1971,258 @@ function startCheckpoint(){
   });
   const sample = shuffle(qs, rnd).slice(0, 8);
   L = {items: sample.map(q => ({type:'grammar', data:q})), idx:0, correct:0, wrong:0, isCheckpoint:true};
+  cur = {correct:-1, answered:false};
+  go('lesson');
+}
+
+/* ============================================================
+   SPEAKING MODULE
+============================================================ */
+function renderSpeaking(main){
+  if(!S.level){ renderWelcome(main); return; }
+  const {phase} = getPhaseLevels();
+  if(phase < 2){
+    main.innerHTML = `<div class="card center">
+      <div style="font-size:48px">🎤</div>
+      <h2>Speaking-модуль</h2>
+      <p class="mb">Speaking открывается на фазе 3 (после месяца 20). Сначала — прочная база B1–B2.</p>
+      <p class="muted mb">Но вы можете тренироваться уже сейчас: читайте вслух, записывайте себя, слушайте образцы.</p>
+      <button class="btn" data-action="speak-preview">Всё равно открыть</button>
+    </div>`;
+    return;
+  }
+  renderSpeakingFull(main);
+}
+
+function renderSpeakingFull(main){
+  const part = window._speakingPart || 1;
+  const p1 = IELTS.speakingPart1;
+  const p2 = IELTS.speakingPart2;
+  const p3 = IELTS.speakingPart3;
+
+  let html = `<div class="card">
+    <div class="between">
+      <h2 style="margin:0">🎤 Speaking Practice</h2>
+      <span class="badge ielts">IELTS</span>
+    </div>
+    <p class="mb" style="margin-top:8px">Записывайте себя, слушайте образец, используйте чек-лист самооценки.</p>
+    <div class="row" style="gap:8px">
+      <button class="btn small ${part===1?'':'ghost'}" data-action="speaking-part" data-part="1">Part 1</button>
+      <button class="btn small ${part===2?'':'ghost'}" data-action="speaking-part" data-part="2">Part 2</button>
+      <button class="btn small ${part===3?'':'ghost'}" data-action="speaking-part" data-part="3">Part 3</button>
+    </div>
+  </div>`;
+
+  if(part === 1){
+    html += `<div class="card">
+      <div class="step-label">Part 1 · Знакомство (4–5 минут)</div>
+      <p class="muted mb">Простые вопросы о вас. Отвечайте 2–3 предложениями.</p>
+      ${p1.map((item, i) => `
+        <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+          <p style="color:var(--text);font-weight:600;margin-bottom:8px">${i+1}. ${esc(item.q)}</p>
+          <button class="speak" data-action="speak-prompt" data-text="${esc(item.q)}">🔊</button>
+        </div>
+      `).join('')}
+    </div>
+    ${recorderHTML()}`;
+  }
+  else if(part === 2){
+    html += `<div class="card">
+      <div class="step-label">Part 2 · Cue Card (1–2 минуты монолога)</div>
+      ${p2.map((c, i) => `
+        <div class="cue-card">
+          <h4>Cue Card ${i+1}</h4>
+          <div class="main-q">${esc(c.q)}</div>
+          <p class="muted" style="font-size:12px;margin-top:6px">You should say:</p>
+          <ul>${c.points.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
+          <p class="muted" style="margin-top:10px;font-size:12px">💡 ${esc(c.tip)}</p>
+          <button class="speak mt" data-action="speak-prompt" data-text="${esc(c.q)}">🔊</button>
+        </div>
+      `).join('')}
+    </div>
+    ${recorderHTML()}`;
+  }
+  else {
+    html += `<div class="card">
+      <div class="step-label">Part 3 · Discussion (4–5 минут)</div>
+      <p class="muted mb">Абстрактные вопросы. Давайте развёрнутые ответы с примерами и аргументами.</p>
+      ${p3.map((item, i) => `
+        <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+          <p style="color:var(--text);font-weight:600;margin-bottom:8px">${i+1}. ${esc(item.q)}</p>
+          <button class="speak" data-action="speak-prompt" data-text="${esc(item.q)}">🔊</button>
+        </div>
+      `).join('')}
+    </div>
+    ${recorderHTML()}`;
+  }
+
+  html += `<div class="card">
+    <h3>Чек-лист самооценки</h3>
+    <div class="checklist">
+      <label><input type="checkbox"> Я говорил(а) без длинных пауз и заполнителей (um, uh)</label>
+      <label><input type="checkbox"> Я использовал(а) разнообразные грамматические структуры</label>
+      <label><input type="checkbox"> Я использовал(а) продвинутую лексику (не только basic words)</label>
+      <label><input type="checkbox"> Моё произношение понятно без напряжения</label>
+      <label><input type="checkbox"> Я отвечал(а) развёрнуто, а не одним словом</label>
+    </div>
+    <p class="muted mt">Оцените себя по шкале IELTS Speaking (0–9).</p>
+    <div class="options">
+      ${[5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0].map(b => `<button class="opt" data-action="set-speaking-score" data-band="${b}">Оценка: ${b.toFixed(1)}</button>`).join('')}
+    </div>
+  </div>`;
+
+  main.innerHTML = html;
+}
+
+function recorderHTML(){
+  return `<div class="card">
+    <h3>Запись</h3>
+    <p class="muted mb">Нажмите кнопку, говорите, затем остановите и прослушайте.</p>
+    <div class="recorder">
+      <button class="rec-btn" id="recBtn" data-action="toggle-rec">🎤</button>
+      <div id="recStatus" class="muted">Готов к записи</div>
+      <audio id="recPlayback" controls class="hidden" style="width:100%;margin-top:12px"></audio>
+    </div>
+    <p class="muted mt">Совет: говорите на 1–2 минуты. Слушайте себя — это самый эффективный способ улучшить speaking.</p>
+  </div>`;
+}
+
+let mediaRecorder, chunks = [], isRecording = false;
+async function toggleRec(){
+  if(!isRecording){
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+      mediaRecorder = new MediaRecorder(stream);
+      chunks = [];
+      mediaRecorder.ondataavailable = e => chunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, {type:'audio/webm'});
+        const url = URL.createObjectURL(blob);
+        const player = document.getElementById('recPlayback');
+        player.src = url;
+        player.classList.remove('hidden');
+        stream.getTracks().forEach(t => t.stop());
+      };
+      mediaRecorder.start();
+      isRecording = true;
+      document.getElementById('recStatus').textContent = '🔴 Запись... говорите!';
+      document.getElementById('recBtn').classList.add('recording');
+    } catch(e) {
+      alert('Нет доступа к микрофону: ' + e.message);
+    }
+  } else {
+    if(mediaRecorder) mediaRecorder.stop();
+    isRecording = false;
+    document.getElementById('recStatus').textContent = '⏹ Прослушайте запись';
+    document.getElementById('recBtn').classList.remove('recording');
+  }
+}
+
+/* ============================================================
+   IELTS EXAM SIMULATOR
+============================================================ */
+function renderExam(main){
+  if(!S.level){ renderWelcome(main); return; }
+  const band = overallBand();
+  const sc = S.ieltsScores;
+
+  main.innerHTML = `
+    <div class="card info">
+      <div class="between">
+        <div>
+          <div class="tiny" style="color:var(--info)">Общий IELTS (оценка)</div>
+          <div class="band">${band > 0 ? band.toFixed(1) : '—'}</div>
+          <div class="muted">Цель: ${S.ieltsTarget.toFixed(1)}</div>
+        </div>
+        <div style="text-align:right">
+          ${band >= S.ieltsTarget
+            ? '<span class="pill cool">✓ Цель достигнута</span>'
+            : '<span class="pill warm">Продолжайте тренироваться</span>'}
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Секции</h3>
+      <div class="grid g2" style="margin-top:12px">
+        <div class="stat">
+          <div class="v">${sc.listening > 0 ? sc.listening.toFixed(1) : '—'}</div>
+          <div class="k">🎧 Listening</div>
+        </div>
+        <div class="stat">
+          <div class="v">${sc.reading > 0 ? sc.reading.toFixed(1) : '—'}</div>
+          <div class="k">📖 Reading</div>
+        </div>
+        <div class="stat">
+          <div class="v">${sc.writing > 0 ? sc.writing.toFixed(1) : '—'}</div>
+          <div class="k">✍️ Writing</div>
+        </div>
+        <div class="stat">
+          <div class="v">${sc.speaking > 0 ? sc.speaking.toFixed(1) : '—'}</div>
+          <div class="k">🎤 Speaking</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Мини-тесты (≈ 10 мин каждый)</h3>
+      <button class="btn ghost" data-action="ielts-listening">🎧 Listening test</button>
+      <button class="btn ghost" data-action="ielts-reading">📖 Reading test</button>
+      <button class="btn ghost" data-action="ielts-writing">✍️ Writing task</button>
+      <button class="btn ghost" data-action="go-speaking">🎤 Speaking practice</button>
+    </div>
+
+    <div class="card">
+      <h3>Стратегии экзамена</h3>
+      <p style="margin-bottom:8px">🎧 <b>Listening:</b> читайте вопросы до прослушивания, следите за синонимами (в аудио — перефраз).</p>
+      <p style="margin-bottom:8px">📖 <b>Reading:</b> сначала skim (общий смысл), потом scan (детали). Тренируйте скорость — 20 мин на текст.</p>
+      <p style="margin-bottom:8px">✍️ <b>Writing:</b> Task 1 — 20 мин / 150 слов, Task 2 — 40 мин / 250 слов. Структура важнее красивых слов.</p>
+      <p>🎤 <b>Speaking:</b> не бойтесь ошибаться. Оценка — за fluency, а не за perfection.</p>
+    </div>
+
+    <div class="card flat">
+      <h3>📌 Помимо приложения</h3>
+      <p style="margin-bottom:6px">→ Cambridge IELTS 1–18 (реальные тесты)</p>
+      <p style="margin-bottom:6px">→ ieltsonlinetests.com, ieltsliz.com</p>
+      <p style="margin-bottom:6px">→ Проходите настоящие тесты с преподавателем</p>
+      <p>→ Запишитесь на реальный IELTS за 2–3 месяца до дедлайна вуза</p>
+    </div>
+  `;
+}
+
+function startIELTSListening(){
+  const rnd = mulberry32(Date.now() % 9999);
+  const set = IELTS.listeningSets[Math.floor(rnd() * IELTS.listeningSets.length)];
+  const items = set.questions.map(q => {
+    const correct = q.opts[q.a];
+    const opts = shuffle(q.opts, rnd);
+    return {q:q.q, opts, a:opts.indexOf(correct)};
+  });
+  L = {items: items.map(q => ({type:'grammar', data:q})), idx:0, correct:0, wrong:0, isIELTS:'listening', transcript:set.transcript, setTitle:set.title};
+  cur = {correct:-1, answered:false};
+  go('lesson');
+}
+
+function startIELTSReading(){
+  const rnd = mulberry32(Date.now() % 9999);
+  const p = IELTS.readingPassages[Math.floor(rnd() * IELTS.readingPassages.length)];
+  const items = p.questions.map(q => {
+    const correct = q.opts[q.a];
+    const opts = shuffle(q.opts, rnd);
+    return {q:q.q, opts, a:opts.indexOf(correct)};
+  });
+  L = {items: [{type:'reading', data:{title:p.title, text:p.text, qs:items}}], idx:0, correct:0, wrong:0, isIELTS:'reading'};
+  cur = {correct:-1, answered:false};
+  go('lesson');
+}
+
+function startIELTSWriting(){
+  const rnd = mulberry32(Date.now() % 9999);
+  const isTask1 = rnd() < 0.5;
+  const task = isTask1
+    ? IELTS.writingTask1[Math.floor(rnd() * IELTS.writingTask1.length)]
+    : IELTS.writingTask2[Math.floor(rnd() * IELTS.writingTask2.length)];
+  L = {items: [{type:'writing', data:{prompt: task.prompt, hints: task.checklist.join(' · '), sample: 'См. пример в разделе Stats.', checklist: task.checklist}}], idx:0, correct:0, wrong:0, isIELTS:'writing'};
   cur = {correct:-1, answered:false};
   go('lesson');
 }
@@ -1605,8 +2242,11 @@ document.getElementById('main').addEventListener('click', e => {
   const a = el.dataset.action;
 
   if(a === 'speak'){ speak(el.dataset.text); return; }
+  if(a === 'speak-prompt'){ speak(el.dataset.text, 0.95); return; }
   if(a === 'open-settings'){ go('settings'); return; }
   if(a === 'go-home'){ go('home'); return; }
+  if(a === 'go-exam'){ go('exam'); return; }
+  if(a === 'go-speaking'){ go('speaking'); return; }
   if(a === 'start-test'){ T = null; go('test'); return; }
   if(a === 'test-answer'){ answerTest(+el.dataset.idx); return; }
   if(a === 'start-lesson'){ startLesson(); return; }
@@ -1626,6 +2266,33 @@ document.getElementById('main').addEventListener('click', e => {
   }
   if(a === 'review-due'){ startReviewDue(); return; }
   if(a === 'export-anki'){ exportAnki(); return; }
+  if(a === 'ielts-listening'){ startIELTSListening(); return; }
+  if(a === 'ielts-reading'){ startIELTSReading(); return; }
+  if(a === 'ielts-writing'){ startIELTSWriting(); return; }
+  if(a === 'speaking-part'){
+    window._speakingPart = parseInt(el.dataset.part);
+    render();
+    return;
+  }
+  if(a === 'speak-preview'){
+    renderSpeakingFull(document.getElementById('main'));
+    return;
+  }
+  if(a === 'toggle-rec'){ toggleRec(); return; }
+  if(a === 'set-target'){
+    S.ieltsTarget = parseFloat(el.dataset.band);
+    saveState();
+    render();
+    return;
+  }
+  if(a === 'set-speaking-score'){
+    const b = parseFloat(el.dataset.band);
+    S.ieltsScores.speaking = b;
+    saveState();
+    alert(`Speaking band: ${b.toFixed(1)}. Общий IELTS: ${overallBand().toFixed(1)}`);
+    render();
+    return;
+  }
   if(a === 'retake-test'){
     if(confirm('Пройти тест заново? Программа и карточки будут сброшены.')){
       T = null; L = null;
@@ -1644,6 +2311,30 @@ document.getElementById('main').addEventListener('click', e => {
     return;
   }
 });
+
+// Update IELTS score after lesson
+const _origFinish = finishLesson;
+finishLesson = function(){
+  _origFinish();
+  // If it was an IELTS test, update scores
+  if(L && L.isIELTS){
+    const total = L.correct + L.wrong;
+    const pct = total > 0 ? L.correct / total : 0;
+    if(L.isIELTS === 'listening'){
+      S.ieltsScores.listening = estimateBand('listening', pct);
+    } else if(L.isIELTS === 'reading'){
+      S.ieltsScores.reading = estimateBand('reading', pct);
+    } else if(L.isIELTS === 'writing'){
+      // Writing: ask user for self-assessment
+      const b = parseFloat(prompt('Оцените своё эссе по IELTS (5.0–8.0):', '6.5') || '0');
+      if(b >= 4 && b <= 9) S.ieltsScores.writing = b;
+    }
+    S.ieltsHistory.push({date: today(), scores: {...S.ieltsScores}});
+    if(S.ieltsHistory.length > 30) S.ieltsHistory = S.ieltsHistory.slice(-30);
+    saveState();
+  }
+  L = null;
+};
 
 if('speechSynthesis' in window) speechSynthesis.onvoiceschanged = () => {};
 render();
