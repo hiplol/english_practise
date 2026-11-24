@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EnglishPath — A2+ → C1 за 2.5 года</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  :root{
+    --bg:#000000;
+    --card:#0a0a0a;
+    --card2:#131313;
+    --card3:#1c1c1c;
+    --accent:#a3e635;
+    --accent2:#65a30d;
+    --accent-soft:rgba(163,230,53,.12);
+    --ok:#a3e635;
+    --bad:#ef4444;
+    --warn:#fbbf24;
+    --text:#ffffff;
+    --muted:#a1a1aa;
+    --border:#27272a;
+  }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 50% -200px,#142800 0%,#000 60%);
+    color:var(--text);min-height:100vh;line-height:1.5;
+  }
+  .app{max-width:860px;margin:0 auto;padding-bottom:96px}
+
+  .topbar{
+    position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+    padding:13px 18px;background:rgba(0,0,0,.85);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);flex-wrap:wrap;
+  }
+  .logo{font-weight:800;font-size:17px;letter-spacing:-.3px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .topbar .spacer{flex:1}
+  .badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;
+    padding:5px 10px;border-radius:999px;background:var(--card2);border:1px solid var(--border);color:var(--muted)}
+  .badge.lvl{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border:none}
+  .badge.fire{color:var(--warn)}
+  .badge.due{color:var(--accent)}
+
+  .main{padding:20px 18px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px}
+  .card.flat{background:var(--card2)}
+  .card.ok{border-color:rgba(163,230,53,.35)}
+  .card.bad{border-color:rgba(239,68,68,.35)}
+  h1{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
+  h2{font-size:19px;font-weight:700;letter-spacing:-.3px;margin-bottom:10px}
+  h3{font-size:15px;font-weight:700;margin-bottom:8px}
+  p{color:var(--muted);font-size:14.5px}
+  .muted{color:var(--muted);font-size:13.5px}
+  .big{font-size:34px;font-weight:800;letter-spacing:-1px;line-height:1.1}
+  .tiny{font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;font-weight:800;color:var(--muted)}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 20px;border-radius:14px;border:none;cursor:pointer;
+    font-size:15px;font-weight:800;font-family:inherit;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;
+    transition:transform .12s ease,filter .12s ease;width:100%;
+  }
+  .btn:active{transform:scale(.97)}
+  .btn.ghost{background:var(--card2);color:var(--text);border:1px solid var(--border)}
+  .btn.danger{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff}
+  .btn.ok{background:linear-gradient(135deg,#a3e635,#65a30d);color:#000}
+  .btn.small{width:auto;padding:9px 16px;font-size:13.5px;border-radius:11px}
+  .btn:disabled{opacity:.45;cursor:default}
+  .btn + .btn{margin-top:10px}
+
+  .bar{height:10px;background:var(--card3);border-radius:999px;overflow:hidden}
+  .bar > i{display:block;height:100%;border-radius:999px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    transition:width .5s cubic-bezier(.4,0,.2,1)}
+
+  .ring-wrap{display:flex;align-items:center;gap:20px}
+  .ring{position:relative;width:96px;height:96px;flex:none}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .pct{position:absolute;inset:0;display:grid;place-items:center;
+    font-weight:800;font-size:19px;letter-spacing:-.5px;color:var(--accent)}
+
+  .grid{display:grid;gap:12px}
+  .grid.g2{grid-template-columns:1fr 1fr}
+  .grid.g3{grid-template-columns:repeat(3,1fr)}
+  .grid.g4{grid-template-columns:repeat(4,1fr)}
+  .stat{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:14px}
+  .stat .v{font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--accent)}
+  .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-top:2px}
+
+  .options{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+  .opt{text-align:left;padding:14px 16px;border-radius:13px;cursor:pointer;
+    background:var(--card2);border:1.5px solid var(--border);color:var(--text);
+    font-size:15px;font-family:inherit;font-weight:500;transition:all .15s ease}
+  .opt:hover:not(:disabled){border-color:#3f3f46;background:var(--card3)}
+  .opt:disabled{cursor:default}
+  .opt.correct{border-color:var(--accent);background:var(--accent-soft);color:#e0f7a8}
+  .opt.wrong{border-color:var(--bad);background:rgba(239,68,68,.12);color:#ffb3b3}
+
+  .fb{margin-top:14px;padding:13px 15px;border-radius:13px;font-size:14px;
+    background:var(--card3);border-left:3px solid var(--accent);color:var(--text)}
+  .fb.ok{border-left-color:var(--accent)}
+  .fb.bad{border-left-color:var(--bad)}
+
+  .speak{background:var(--card3);border:1px solid var(--border);color:var(--accent);
+    border-radius:11px;padding:7px 13px;cursor:pointer;font-size:15px;font-family:inherit;font-weight:600}
+  .speak:active{transform:scale(.95)}
+
+  .passage{background:var(--card2);border:1px solid var(--border);border-radius:14px;
+    padding:16px;font-size:15px;line-height:1.7;color:#d4d4d8;margin-bottom:16px}
+
+  .step-label{font-size:11.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+    color:var(--accent);margin-bottom:10px}
+  .word-big{font-size:32px;font-weight:800;letter-spacing:-1px;margin-bottom:4px;color:var(--accent)}
+
+  .vrow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+  .vrow:last-child{border-bottom:none}
+  .vrow .en{font-weight:700;font-size:15px}
+  .vrow .ru{color:var(--muted);font-size:13.5px}
+  .vrow .ex{color:#71717a;font-size:12.5px;font-style:italic;margin-top:2px}
+  .vrow .mini{background:var(--card3);border:1px solid var(--border);color:var(--accent);
+    border-radius:9px;padding:6px 9px;cursor:pointer;font-size:14px}
+
+  textarea{width:100%;min-height:140px;background:var(--card2);border:1px solid var(--border);
+    border-radius:13px;padding:14px;color:var(--text);font-family:inherit;font-size:15px;
+    resize:vertical;line-height:1.6}
+  textarea:focus{outline:none;border-color:var(--accent)}
+
+  .nav{position:fixed;bottom:0;left:0;right:0;z-index:60;display:flex;
+    background:rgba(0,0,0,.94);backdrop-filter:blur(16px);border-top:1px solid var(--border)}
+  .nav button{flex:1;background:none;border:none;color:var(--muted);font-family:inherit;
+    padding:11px 0 13px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;
+    font-size:10.5px;font-weight:700;letter-spacing:.3px;transition:color .15s}
+  .nav button .ic{font-size:18px;line-height:1}
+  .nav button.active{color:var(--accent)}
+
+  .center{text-align:center}
+  .mt{margin-top:16px}.mb{margin-bottom:16px}
+  .row{display:flex;gap:10px;align-items:center}
+  .between{display:flex;justify-content:space-between;align-items:center}
+  .hidden{display:none!important}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .pill{font-size:11px;padding:4px 10px;border-radius:999px;background:var(--card3);
+    color:var(--muted);font-weight:700}
+  .pill.hot{background:rgba(239,68,68,.15);color:#fca5a5}
+  .pill.warm{background:rgba(251,191,36,.15);color:#fcd34d}
+  .pill.cool{background:var(--accent-soft);color:var(--accent)}
+
+  .chart{display:flex;align-items:flex-end;gap:6px;height:110px;margin-top:14px}
+  .chart > div{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .chart .b{width:100%;border-radius:6px;background:linear-gradient(180deg,var(--accent),var(--accent2))}
+  .chart .l{font-size:10px;color:var(--muted)}
+
+  /* --- ФАЗЫ --- */
+  .phase{margin-bottom:18px}
+  .phase-head{
+    display:flex;align-items:center;gap:12px;
+    padding:14px 16px;border-radius:14px;margin-bottom:10px;
+    background:linear-gradient(135deg,rgba(163,230,53,.1),rgba(101,163,13,.05));
+    border:1px solid var(--border);
+  }
+  .phase-head.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+  .phase-head .ph-title{font-weight:800;font-size:14.5px;color:var(--accent)}
+  .phase-head .ph-goal{font-size:12px;color:var(--muted);margin-top:2px}
+  .phase-head .ph-prog{font-size:12px;font-weight:800;color:var(--text)}
+
+  .month-row{display:flex;align-items:center;gap:12px;padding:10px 12px;
+    border-radius:10px;margin-bottom:6px;background:var(--card2);border:1px solid var(--border)}
+  .month-row.current{border-color:var(--accent);background:var(--accent-soft)}
+  .month-row .mn{font-size:12px;font-weight:700;color:var(--muted);min-width:52px}
+  .month-row.current .mn{color:var(--accent)}
+  .month-row .dots{flex:1;display:grid;grid-template-columns:repeat(16,1fr);gap:3px}
+  .month-row .dot{aspect-ratio:1;border-radius:3px;background:var(--card3)}
+  .month-row .dot.done{background:linear-gradient(135deg,var(--accent),var(--accent2))}
+  .month-row .dot.next{box-shadow:0 0 0 1.5px var(--accent) inset;animation:pulse 1.8s infinite}
+  .month-row .mg{font-size:11px;font-weight:700;color:var(--muted);min-width:36px;text-align:right}
+  .month-row.current .mg{color:var(--accent)}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+  .milestone{
+    display:flex;align-items:center;gap:10px;padding:10px 14px;margin:10px 0;
+    border-radius:12px;background:var(--card2);border:1px dashed var(--border);
+    font-size:13px;color:var(--muted);
+  }
+  .milestone.reached{background:var(--accent-soft);border-style:solid;border-color:var(--accent);color:var(--accent);font-weight:700}
+
+  @media(max-width:460px){
+    .grid.g3,.grid.g4{grid-template-columns:1fr 1fr}
+    .big{font-size:28px}
+    .month-row .mn{min-width:40px;font-size:11px}
+    .month-row .dots{gap:2px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar" id="topbar"></header>
+  <main class="main" id="main"></main>
+  <nav class="nav" id="nav">
+    <button data-view="home"><span class="ic">🏠</span><span>Главная</span></button>
+    <button data-view="map"><span class="ic">🗺️</span><span>План</span></button>
+    <button data-view="deck"><span class="ic">🃏</span><span>Колода</span></button>
+    <button data-view="vocab"><span class="ic">📚</span><span>Словарь</span></button>
+    <button data-view="stats"><span class="ic">📊</span><span>Прогресс</span></button>
+  </nav>
+</div>
+
+<script>
+/* ============================================================
+   КОНСТАНТЫ
+============================================================ */
+const LEVELS = ['A1','A2','B1','B2','C1','C2'];
+const TOTAL_DAYS = 480;            // 30 месяцев × 16 занятий
+const DAYS_PER_MONTH = 16;
+const PHASE_COUNT = 3;
+const PHASE_MONTHS = 10;
+const PHASE_DAYS = PHASE_MONTHS * DAYS_PER_MONTH; // 160
+const TARGET_LEVEL = 'C1';
+const STORAGE_KEY = 'englishpath_v3_lime';
+const DAY_MS = 86400000;
+
+const $ = s => document.querySelector(s);
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function shuffle(arr,rnd){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function today(){return new Date().toISOString().slice(0,10)}
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=0.9;
+  const v = speechSynthesis.getVoices().find(x=>x.lang.startsWith('en'));
+  if(v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+
+/* ============================================================
+   БАЗА КОНТЕНТА
+============================================================ */
+const DATA = {
+A1:{
+grammar:[
+{topic:'To be',q:'She ___ a doctor.',opts:['am','is','are','be'],a:1},
+{topic:'To be',q:'They ___ from Spain.',opts:['is','am','are','be'],a:2},
+{topic:'Articles',q:'I have ___ apple in my bag.',opts:['a','an','the','—'],a:1},
+{topic:'Question words',q:'___ is your name?',opts:['What','Who','Where','How'],a:0},
+{topic:'Present Simple',q:'He ___ like coffee.',opts:["don't","doesn't","isn't","aren't"],a:1},
+{topic:'Possessives',q:'This is my sister. ___ name is Kate.',opts:['His','Her','She','Hers'],a:1},
+{topic:'Present Simple',q:'We ___ to school every day.',opts:['goes','go','going','gone'],a:1},
+{topic:'There is/are',q:'There ___ two chairs in the room.',opts:['is','are','be','am'],a:1}
+],
+vocab:[
+{en:'apple',ru:'яблоко',ex:'I eat an apple every morning.'},
+{en:'water',ru:'вода',ex:'Can I have a glass of water, please?'},
+{en:'house',ru:'дом',ex:'They live in a small house.'},
+{en:'book',ru:'книга',ex:'This book is very interesting.'},
+{en:'friend',ru:'друг',ex:'My friend lives in London.'},
+{en:'school',ru:'школа',ex:'The children go to school by bus.'},
+{en:'family',ru:'семья',ex:'My family is quite big.'},
+{en:'morning',ru:'утро',ex:'I drink coffee in the morning.'},
+{en:'to eat',ru:'есть, кушать',ex:'We eat dinner at seven o’clock.'},
+{en:'big',ru:'большой',ex:'That is a very big dog.'},
+{en:'happy',ru:'счастливый',ex:'She looks happy today.'},
+{en:'to work',ru:'работать',ex:'He works in a bank.'}
+],
+reading:[{title:'Tom’s Family',
+ text:'Tom is ten years old. He lives in London with his mother, father and sister. His mother is a teacher. His father is a driver. Tom likes football and pizza. His sister Anna is five. She likes cats and ice cream.',
+ qs:[{q:'How old is Tom?',opts:['Ten','Five','Fifteen','Twelve'],a:0},
+     {q:'What is Tom’s mother’s job?',opts:['A driver','A teacher','A doctor','A cook'],a:1},
+     {q:'What does Anna like?',opts:['Football','Pizza','Cats and ice cream','Books'],a:2}]}],
+listening:[
+{en:'I am from Russia.',ru:'Я из России.'},
+{en:'She has two cats.',ru:'У неё две кошки.'},
+{en:'We go to the park on Sunday.',ru:'Мы ходим в парк по воскресеньям.'},
+{en:'He is my best friend.',ru:'Он мой лучший друг.'},
+{en:'My phone is in the bag.',ru:'Мой телефон в сумке.'},
+{en:'They are at home now.',ru:'Они сейчас дома.'}
+],
+writing:[{prompt:'Расскажите о себе: имя, возраст, откуда вы, чем занимаетесь.',
+ hints:'My name is… I am … years old. I am from… I work / I study…',
+ sample:'My name is Anna. I am twenty-five years old. I am from Moscow. I work in an office. In my free time I like reading books and walking in the park.',
+ checklist:['Используйте I am','Проверьте артикли','Не менее 30 слов']}]
+},
+
+A2:{
+grammar:[
+{topic:'Past Simple',q:'I ___ to the cinema yesterday.',opts:['go','went','gone','going'],a:1},
+{topic:'Comparatives',q:'She is ___ than her sister.',opts:['tall','taller','the tallest','more tall'],a:1},
+{topic:'Present Perfect',q:'Have you ever ___ to Paris?',opts:['go','went','been','being'],a:2},
+{topic:'Conditionals',q:'If it ___ tomorrow, we will stay at home.',opts:['rain','rains','will rain','rained'],a:1},
+{topic:'Past Continuous',q:'He ___ TV when I called him.',opts:['watched','was watching','is watching','watches'],a:1},
+{topic:'Some/any',q:'There isn’t ___ milk in the fridge.',opts:['some','any','many','a'],a:1},
+{topic:'For/since',q:'I’ve lived here ___ 2010.',opts:['for','since','from','during'],a:1},
+{topic:'Comparatives',q:'This book is ___ interesting than that one.',opts:['most','much','more','many'],a:2},
+{topic:'Future',q:'I ___ visit my grandmother tomorrow.',opts:['will','am','do','was'],a:0},
+{topic:'Modals',q:'You ___ smoke here. It is forbidden.',opts:['mustn’t','don’t have to','needn’t','shouldn’t'],a:0},
+{topic:'Past Simple',q:'___ you see him yesterday?',opts:['Did','Do','Was','Were'],a:0},
+{topic:'Going to',q:'We ___ going to travel this summer.',opts:['is','are','am','be'],a:1}
+],
+vocab:[
+{en:'journey',ru:'путешествие, поездка',ex:'The journey took six hours by train.'},
+{en:'to borrow',ru:'брать взаймы',ex:'Can I borrow your pen for a minute?'},
+{en:'expensive',ru:'дорогой',ex:'That restaurant is too expensive for me.'},
+{en:'weather',ru:'погода',ex:'The weather was terrible last weekend.'},
+{en:'to arrive',ru:'прибывать',ex:'We arrived at the station at nine.'},
+{en:'healthy',ru:'здоровый',ex:'She tries to eat healthy food.'},
+{en:'to forget',ru:'забывать',ex:'Don’t forget to lock the door.'},
+{en:'advice',ru:'совет',ex:'He gave me some useful advice.'},
+{en:'crowded',ru:'многолюдный',ex:'The metro is always crowded in the morning.'},
+{en:'to improve',ru:'улучшать',ex:'I want to improve my English.'},
+{en:'to complain',ru:'жаловаться',ex:'He often complains about the food.'},
+{en:'neighbour',ru:'сосед',ex:'Our neighbour has a very loud dog.'},
+{en:'to decide',ru:'решать',ex:'We decided to stay at home.'},
+{en:'to explain',ru:'объяснять',ex:'Can you explain this rule again?'},
+{en:'comfortable',ru:'удобный',ex:'These shoes are very comfortable.'},
+{en:'dangerous',ru:'опасный',ex:'It is dangerous to drive so fast.'},
+{en:'to invite',ru:'приглашать',ex:'They invited us to their wedding.'},
+{en:'delicious',ru:'вкусный',ex:'This cake is absolutely delicious.'},
+{en:'to remember',ru:'помнить',ex:'I can’t remember his name.'},
+{en:'quiet',ru:'тихий',ex:'We live in a quiet neighbourhood.'}
+],
+reading:[
+{title:'A Weekend in the Mountains',
+ text:'Last weekend my friends and I went to the mountains. We left early on Saturday morning because we wanted to arrive before lunch. The weather was cold but sunny. We walked for about four hours and then we stopped near a small lake. My friend Daniel forgot his jacket, so he was very cold. In the evening we made a fire and cooked sausages. It was a simple trip, but I think it was the best weekend of the year.',
+ qs:[{q:'When did they leave?',opts:['Saturday afternoon','Saturday morning','Sunday morning','Friday evening'],a:1},
+     {q:'Why was Daniel cold?',opts:['He lost his jacket','He forgot his jacket','He fell in the lake','He didn’t eat'],a:1},
+     {q:'How long did they walk?',opts:['Two hours','About four hours','All day','One hour'],a:1}]},
+{title:'A Letter from London',
+ text:'Dear Emma, I am writing to you from London. I arrived here three days ago and I am staying with my aunt. The city is bigger and noisier than I expected. Yesterday we visited the British Museum and then we had dinner in a small Italian restaurant. The food was excellent. Tomorrow we are going to see Buckingham Palace. I will send you some photos. Love, Kate.',
+ qs:[{q:'How long has Kate been in London?',opts:['Three days','A week','A month','One day'],a:0},
+     {q:'Where is she staying?',opts:['In a hotel','With her aunt','With a friend','In a hostel'],a:1},
+     {q:'What are they going to do tomorrow?',opts:['Visit a museum','Eat Italian food','See Buckingham Palace','Go shopping'],a:2}]}
+],
+listening:[
+{en:'I went to the beach last weekend.',ru:'В прошлые выходные я ездил на пляж.'},
+{en:'She has just finished her homework.',ru:'Она только что закончила домашнюю работу.'},
+{en:'We are going to visit my grandmother tomorrow.',ru:'Завтра мы собираемся навестить бабушку.'},
+{en:'He was cooking dinner when I arrived.',ru:'Он готовил ужин, когда я пришёл.'},
+{en:'This is the best film I have ever seen.',ru:'Это лучший фильм, который я когда-либо видел.'},
+{en:'I have been learning English for two years.',ru:'Я учу английский уже два года.'},
+{en:'The weather was terrible, so we stayed at home.',ru:'Погода была ужасная, поэтому мы остались дома.'},
+{en:'She said she would call me later.',ru:'Она сказала, что позвонит позже.'}
+],
+writing:[
+{prompt:'Опишите ваш прошлый отпуск или выходные (4–6 предложений).',
+ hints:'Last summer I went… We stayed… The weather was… We visited… It was…',
+ sample:'Last summer I went to the sea with my family. We stayed in a small hotel near the beach. The weather was hot and sunny every day. We swam in the morning and visited old towns in the afternoon. I really enjoyed the food, especially the fresh fish. It was a wonderful holiday.',
+ checklist:['Past Simple','Связки: then, after that, finally','Не менее 50 слов']},
+{prompt:'Напишите короткое письмо другу с приглашением на выходные.',
+ hints:'Hi…, How are you? Would you like to…? We could… Let me know…',
+ sample:'Hi Alex, How are you? I hope everything is fine. Would you like to come to my place this weekend? We could watch a film and cook something nice. My sister will be here too. Let me know if you can come. Best wishes, Kate.',
+ checklist:['Приветствие и подпись','Would you like to…?','Не менее 40 слов']}
+]
+},
+
+B1:{
+grammar:[
+{topic:'Past Perfect',q:'By the time we arrived, the film ___.',opts:['started','had started','has started','was starting'],a:1},
+{topic:'Reported speech',q:'She asked me where I ___.',opts:['live','lived','do live','am living'],a:1},
+{topic:'Modals',q:'You ___ smoke here — it’s forbidden.',opts:["mustn't","don't have to","needn't","shouldn't have"],a:0},
+{topic:'Used to',q:'He’s used to ___ up early.',opts:['get','got','getting','gets'],a:2},
+{topic:'Passive',q:'The report ___ by the manager yesterday.',opts:['wrote','was written','has written','is writing'],a:1},
+{topic:'Wish',q:'I wish I ___ more free time.',opts:['have','had','will have','having'],a:1},
+{topic:'Correlative',q:'Neither Tom ___ his brothers came to the party.',opts:['or','nor','and','either'],a:1},
+{topic:'Would rather',q:'I’d rather you ___ tell anyone about it.',opts:["don't","didn't","won't","haven't"],a:1},
+{topic:'Present Perfect Continuous',q:'I ___ been waiting for an hour.',opts:['have','has','am','was'],a:0},
+{topic:'Modal perfect',q:'You ___ have told me earlier.',opts:['should','must','can','will'],a:0},
+{topic:'First conditional',q:'If you study hard, you ___ pass the exam.',opts:['will','would','are','did'],a:0},
+{topic:'Passive',q:'English ___ all over the world.',opts:['speaks','is spoken','is speaking','spoke'],a:1}
+],
+vocab:[
+{en:'to achieve',ru:'достигать',ex:'She achieved excellent results at university.'},
+{en:'reliable',ru:'надёжный',ex:'He is a reliable colleague.'},
+{en:'opportunity',ru:'возможность',ex:'This job is a great opportunity for me.'},
+{en:'to afford',ru:'позволить себе',ex:'We can’t afford a new car this year.'},
+{en:'challenging',ru:'трудный, требующий усилий',ex:'The project was challenging but interesting.'},
+{en:'to suggest',ru:'предлагать',ex:'She suggested taking a different route.'},
+{en:'environment',ru:'окружающая среда',ex:'We should protect the environment.'},
+{en:'to manage',ru:'справляться, успевать',ex:'He manages a team of ten people.'},
+{en:'evidence',ru:'доказательство',ex:'There is no evidence for this claim.'},
+{en:'to avoid',ru:'избегать',ex:'Try to avoid busy roads during rush hour.'},
+{en:'responsible',ru:'ответственный',ex:'She is responsible for the whole department.'},
+{en:'to persuade',ru:'убеждать',ex:'He persuaded me to change my mind.'},
+{en:'to refuse',ru:'отказываться',ex:'She refused to answer the question.'},
+{en:'to admit',ru:'признавать',ex:'He admitted that he had made a mistake.'},
+{en:'gradual',ru:'постепенный',ex:'There has been a gradual improvement.'},
+{en:'essential',ru:'существенный, необходимый',ex:'Water is essential for life.'},
+{en:'eventually',ru:'в конце концов',ex:'Eventually they found the right solution.'},
+{en:'to reduce',ru:'сокращать',ex:'We need to reduce our costs.'},
+{en:'to require',ru:'требовать',ex:'This job requires good communication skills.'},
+{en:'to rely on',ru:'полагаться на',ex:'You can rely on him to be on time.'}
+],
+reading:[
+{title:'Working from Home',
+ text:'Working from home has become normal for millions of people, but not everyone agrees that it is a good thing. Supporters say it saves time and money: there is no commute, and employees can organize their day as they prefer. They also argue that people are often more productive without the noise of an office. Critics, however, point out that it can be difficult to separate work from personal life. Some workers feel lonely and miss the informal conversations that happen in an office. Most experts now believe that a mixed model — a few days at home and a few days in the office — works best for both companies and employees.',
+ qs:[{q:'What advantage is mentioned?',opts:['No commute','Higher salary','Free lunches','Longer holidays'],a:0},
+     {q:'What problem do critics mention?',opts:['It is too expensive','Work and personal life mix together','Offices are too noisy','Employees work too little'],a:1},
+     {q:'What do most experts prefer?',opts:['Fully remote work','Fully office work','A mixed model','No work at all'],a:2}]},
+{title:'The History of Tea',
+ text:'Tea is one of the most popular drinks in the world, but its history is surprisingly complicated. According to legend, tea was discovered in China almost five thousand years ago when leaves fell into a pot of boiling water. For centuries, tea was used as medicine rather than as an everyday drink. It reached Europe only in the seventeenth century, and at first it was so expensive that only rich people could afford it. British traders soon realized that tea could become a very profitable business, and by the nineteenth century it had become the national drink of Britain.',
+ qs:[{q:'Where was tea discovered according to legend?',opts:['India','China','Britain','Japan'],a:1},
+     {q:'When did tea reach Europe?',opts:['5,000 years ago','In the 17th century','In the 19th century','In the Middle Ages'],a:1},
+     {q:'What was tea used for at first?',opts:['As food','As medicine','As decoration','As money'],a:1}]}
+],
+listening:[
+{en:'If I had more time, I would learn to play the guitar.',ru:'Если бы у меня было больше времени, я бы научился играть на гитаре.'},
+{en:'The meeting has been postponed until Friday.',ru:'Встречу перенесли на пятницу.'},
+{en:'I’m used to getting up early, even at weekends.',ru:'Я привык вставать рано, даже по выходным.'},
+{en:'She suggested taking a different route to avoid the traffic.',ru:'Она предложила поехать другой дорогой, чтобы избежать пробок.'},
+{en:'It’s worth reading the instructions before you start.',ru:'Стоит прочитать инструкцию, прежде чем начинать.'},
+{en:'He apologized for being late to the interview.',ru:'Он извинился за опоздание на собеседование.'},
+{en:'By the time we arrived, everyone had already left.',ru:'К моменту нашего прихода все уже ушли.'},
+{en:'The book, which was published last year, became a bestseller.',ru:'Книга, опубликованная в прошлом году, стала бестселлером.'}
+],
+writing:[
+{prompt:'Напишите короткое мнение (60–80 слов): плюсы и минусы жизни в большом городе.',
+ hints:'On the one hand… On the other hand… In my opinion… However…',
+ sample:'Living in a big city has both advantages and disadvantages. On the one hand, there are more job opportunities, better transport and a lot of entertainment. On the other hand, life there is expensive, noisy and often stressful. In my opinion, a big city is perfect for young people who want to build a career, but families with children may prefer quieter places.',
+ checklist:['On the one hand / On the other hand','In my opinion','Не менее 60 слов']},
+{prompt:'Опишите случай, когда вы чему-то научились на ошибке (60–80 слов).',
+ hints:'Last year I… I made a mistake… I realized that… Since then…',
+ sample:'Last year I forgot to back up an important project and lost two days of work. At first I was angry with myself, but then I realized that the mistake had taught me something useful. Since then I always keep several copies of my files and plan my time more carefully. Now I see that failures can be the best teachers.',
+ checklist:['Past Perfect для предшествия','Since then','Не менее 60 слов']}
+]
+},
+
+B2:{
+grammar:[
+{topic:'Inversion conditional',q:'Had I known about it, I ___ differently.',opts:['would act','would have acted','had acted','will act'],a:1},
+{topic:'Relative clauses',q:'She’s the woman ___ car was stolen.',opts:['who','which','whose','that'],a:2},
+{topic:'Inversion',q:'Not only ___ late, but he also forgot the file.',opts:['he was','was he','he is','is he'],a:1},
+{topic:'Passive reporting',q:'The project is said ___ completed last month.',opts:['to complete','to be','to have been','being'],a:2},
+{topic:'Gerund after preposition',q:'He objected to ___ treated like a child.',opts:['be','being','been','was'],a:1},
+{topic:'Concessive',q:'___ hard he tried, he could not solve the problem.',opts:['However','Whatever','Whenever','Wherever'],a:0},
+{topic:'Inversion',q:'Little ___ that she was being watched.',opts:['she knew','did she know','she did know','knew she'],a:1},
+{topic:'Would sooner',q:'I’d sooner ___ at home tonight.',opts:['staying','to stay','stay','stayed'],a:2},
+{topic:'Subjunctive',q:'It is essential that he ___ present at the meeting.',opts:['is','be','will be','was'],a:1},
+{topic:'Causative',q:'I had my car ___ last week.',opts:['repair','repairing','repaired','to repair'],a:2},
+{topic:'Perfect gerund',q:'Having ___ the work, she went home.',opts:['finish','finished','finishing','to finish'],a:1},
+{topic:'Third conditional',q:'If they ___ earlier, they would have caught the train.',opts:['left','had left','have left','were leaving'],a:1}
+],
+vocab:[
+{en:'to undermine',ru:'подрывать',ex:'Constant criticism undermines confidence.'},
+{en:'ambiguous',ru:'двусмысленный',ex:'His answer was deliberately ambiguous.'},
+{en:'to convey',ru:'передавать (мысль)',ex:'The painting conveys a sense of loss.'},
+{en:'inevitably',ru:'неизбежно',ex:'Prices will inevitably rise next year.'},
+{en:'to tackle',ru:'решать (проблему)',ex:'The government must tackle youth unemployment.'},
+{en:'coherent',ru:'связный, последовательный',ex:'She gave a coherent explanation.'},
+{en:'to thrive',ru:'процветать',ex:'Small businesses thrive in this area.'},
+{en:'compelling',ru:'убедительный',ex:'There is compelling evidence against him.'},
+{en:'discrepancy',ru:'расхождение',ex:'There was a discrepancy between the two reports.'},
+{en:'to yield',ru:'давать результат',ex:'The experiment yielded surprising results.'},
+{en:'sustainable',ru:'устойчивый, экологичный',ex:'We need sustainable sources of energy.'},
+{en:'to underestimate',ru:'недооценивать',ex:'Never underestimate your opponent.'},
+{en:'to advocate',ru:'отстаивать, выступать за',ex:'She advocates for stricter environmental laws.'},
+{en:'tentative',ru:'предварительный, осторожный',ex:'We have reached a tentative agreement.'},
+{en:'to impair',ru:'ухудшать, ослаблять',ex:'Lack of sleep can impair judgment.'},
+{en:'redundant',ru:'избыточный, лишний',ex:'The last paragraph is redundant.'},
+{en:'to align',ru:'согласовывать, выравнивать',ex:'We need to align our goals with the budget.'},
+{en:'credible',ru:'заслуживающий доверия',ex:'She is a credible witness.'},
+{en:'intricate',ru:'запутанный, сложный',ex:'The plot of the novel is intricate.'},
+{en:'to capitalize on',ru:'извлекать выгоду из',ex:'They capitalized on the new trend.'}
+],
+reading:[
+{title:'The Paradox of Choice',
+ text:'Conventional wisdom suggests that the more options we have, the happier we should be. Yet a growing body of research indicates that the opposite is often true. In one well-known experiment, shoppers who were offered twenty-four varieties of jam were far less likely to buy any than shoppers who saw only six. Psychologists call this the paradox of choice: an abundance of options increases the effort required to decide, and with it the anxiety that we may make the wrong decision. Even after we choose, we tend to regret the alternatives we rejected. This does not mean that choice is bad — only that beyond a certain point, additional options impose a hidden cost that we rarely account for.',
+ qs:[{q:'What did the jam experiment show?',opts:['More choices led to more purchases','Fewer choices led to more purchases','People disliked jam','People wanted 24 varieties'],a:1},
+     {q:'What is the paradox of choice?',opts:['Too much choice can make us less happy','Choice is always good','People cannot choose jam','More options are cheaper'],a:0},
+     {q:'What is the author’s conclusion?',opts:['Choice should be eliminated','Choice is bad in all cases','Beyond a point, extra options have a cost','People should buy jam'],a:2}]},
+{title:'The Rise of Remote Learning',
+ text:'When universities around the world were forced to move their courses online, many predicted that remote learning would become the new standard. A few years later, the picture is more complicated. Online education has undoubtedly widened access: students in remote areas can now attend lectures from leading institutions without relocating. Yet several studies have found that completion rates for online courses are consistently lower than for their face-to-face equivalents. Engagement, rather than access, appears to be the real bottleneck. The most successful programmes combine the flexibility of online delivery with structured interactions — weekly tutorials, peer groups and deadlines that mimic the rhythm of a physical classroom.',
+ qs:[{q:'What advantage of online learning is mentioned?',opts:['Lower costs','Wider access','Easier grading','Shorter courses'],a:1},
+     {q:'What is the main challenge identified?',opts:['Access','Technology','Engagement','Cost'],a:2},
+     {q:'What do successful programmes do?',opts:['Eliminate deadlines','Use only online materials','Combine flexibility with structure','Reduce the number of students'],a:2}]}
+],
+listening:[
+{en:'Had I realized how late it was, I would have called you.',ru:'Если бы я понял, как поздно, я бы позвонил тебе.'},
+{en:'The proposal, which was submitted last week, is still being reviewed.',ru:'Предложение, поданное на прошлой неделе, всё ещё рассматривается.'},
+{en:'Not only did she finish first, but she also broke the record.',ru:'Она не только финишировала первой, но и побила рекорд.'},
+{en:'There is little point in complaining now that the decision has been made.',ru:'Жаловаться теперь, когда решение принято, почти бессмысленно.'},
+{en:'He is said to have resigned over the disagreement.',ru:'Говорят, он ушёл в отставку из-за разногласий.'},
+{en:'The more carefully you plan, the fewer problems you will face.',ru:'Чем тщательнее вы планируете, тем меньше проблем возникнет.'},
+{en:'Should you need any further assistance, please do not hesitate to contact us.',ru:'Если вам понадобится дополнительная помощь, пожалуйста, обращайтесь.'},
+{en:'What surprised me most was not what he said, but how he said it.',ru:'Больше всего меня удивило не то, что он сказал, а то, как он это сказал.'}
+],
+writing:[
+{prompt:'Опишите проблему в вашем городе (транспорт, экология, жильё) и предложите решение (100–120 слов).',
+ hints:'One of the most pressing issues… The main cause is… A possible solution would be… This would allow…',
+ sample:'One of the most pressing issues in my city is traffic congestion. The main cause is the growing number of private cars combined with an outdated road network. A possible solution would be to invest in reliable public transport and create park-and-ride facilities on the outskirts. This would allow commuters to leave their cars outside the centre and reach their workplaces quickly. In addition, flexible working hours could reduce peak-hour pressure. Such measures would not only ease congestion but also improve air quality.',
+ checklist:['One of the most…','A possible solution would be…','Не менее 100 слов']},
+{prompt:'«Технологии делают нас менее общительными». Согласны ли вы? (100–120 слов)',
+ hints:'It is often argued that… While I accept that…, I would argue… Furthermore… On balance…',
+ sample:'It is often argued that technology makes us less sociable. While I accept that smartphones can distract people during conversations, I would argue that the opposite is often true. Social media allows us to stay in touch with friends who live far away, and video calls make regular contact possible across continents. Furthermore, online communities help people with niche interests find each other. On balance, technology seems to change the form of communication rather than destroy it.',
+ checklist:['While I accept…, I would argue…','On balance','Не менее 100 слов']}
+]
+},
+
+C1:{
+grammar:[
+{topic:'Inversion conditional',q:'___ he been informed, he would have come.',opts:['Had','Have','If','Should'],a:0},
+{topic:'It’s high time',q:'It’s high time we ___ this matter seriously.',opts:['discuss','discussed','will discuss','discussing'],a:1},
+{topic:'Such inversion',q:'Such ___ the force of the wind that several trees fell.',opts:['was','were','is','had'],a:0},
+{topic:'Gerund',q:'She resented ___ to justify every decision she made.',opts:['asking','to ask','being asked','be asked'],a:2},
+{topic:'Preposition',q:'___ no circumstances should the alarm be disabled.',opts:['In','On','Under','At'],a:2},
+{topic:'Passive reporting',q:'He is believed ___ the country last month.',opts:['to leave','to have left','leaving','to be leaving'],a:1},
+{topic:'Inversion',q:'Scarcely ___ down when the phone rang.',opts:['I had sat','had I sat','I sat','did I sat'],a:1},
+{topic:'Subjunctive',q:'It is imperative that every member ___ present.',opts:['is','be','will be','was'],a:1},
+{topic:'Inversion',q:'Only when the results were published ___ the full extent of the problem.',opts:['we understood','did we understand','we did understand','understood we'],a:1},
+{topic:'Ellipsis',q:'She can play the piano, and her brother ___ too.',opts:['can','can play','does','is'],a:0},
+{topic:'Participle clause',q:'___ the report, she sent it to her manager.',opts:['Finishing','Having finished','Finished','To finish'],a:1},
+{topic:'Would rather + past perfect',q:'I’d rather you ___ told me the truth yesterday.',opts:['have','had','would','did'],a:1}
+],
+vocab:[
+{en:'to exacerbate',ru:'обострять, усугублять',ex:'The new tax exacerbated existing inequalities.'},
+{en:'inherent',ru:'присущий, неотъемлемый',ex:'Risk is inherent in any investment.'},
+{en:'to scrutinize',ru:'тщательно изучать',ex:'The auditors scrutinized every transaction.'},
+{en:'albeit',ru:'хотя и',ex:'He accepted the offer, albeit reluctantly.'},
+{en:'conducive',ru:'способствующий',ex:'The atmosphere was conducive to open discussion.'},
+{en:'nuanced',ru:'нюансированный',ex:'She offered a nuanced view of the conflict.'},
+{en:'to circumvent',ru:'обходить',ex:'They tried to circumvent the regulations.'},
+{en:'ostensibly',ru:'якобы, внешне',ex:'He resigned, ostensibly for personal reasons.'},
+{en:'to entail',ru:'влечь за собой',ex:'The role entails a great deal of travel.'},
+{en:'pervasive',ru:'повсеместный',ex:'A pervasive sense of unease filled the room.'},
+{en:'to reconcile',ru:'примирять, согласовывать',ex:'It is hard to reconcile these two accounts.'},
+{en:'tenuous',ru:'шаткий, слабый',ex:'The link between the events is tenuous.'},
+{en:'to consolidate',ru:'укреплять, объединять',ex:'The company consolidated its position in the market.'},
+{en:'visceral',ru:'интуитивный, глубинный',ex:'She had a visceral dislike of the place.'},
+{en:'salient',ru:'существенный, заметный',ex:'The most salient feature of the design is its simplicity.'},
+{en:'to curtail',ru:'сокращать, ограничивать',ex:'The government curbed public spending.'},
+{en:'meticulous',ru:'скрупулёзный',ex:'He kept meticulous records of every payment.'},
+{en:'arbitrary',ru:'произвольный',ex:'The decision seemed arbitrary and unfair.'},
+{en:'plausible',ru:'правдоподобный',ex:'Her explanation sounded plausible.'},
+{en:'to substantiate',ru:'обосновывать, подтверждать',ex:'The claims were never substantiated by evidence.'}
+],
+reading:[
+{title:'The Attention Economy',
+ text:'In the attention economy, the scarce resource is no longer information but the human capacity to process it. Platforms are engineered to capture and retain attention, and their algorithms are indifferent to whether the content they surface is edifying, so long as it is engaging. The consequences are subtle. Sustained concentration, once taken for granted, now requires deliberate effort; the default mode of the modern reader is interruption. Some commentators argue that this represents a fundamental shift in cognition rather than a mere change in habit. Whether such claims are exaggerated remains an open question, but it is increasingly difficult to dismiss them as the complaints of a nostalgic elite.',
+ qs:[{q:'What is the scarce resource according to the text?',opts:['Information','Money','Human attention','Technology'],a:2},
+     {q:'What does the author say about algorithms?',opts:['They prefer educational content','They care only about engagement, not value','They are controlled by governments','They are unbiased'],a:1},
+     {q:'What is the author’s stance on the "fundamental shift" claim?',opts:['It is definitely false','It is definitely true','It is an open question, hard to dismiss','It is irrelevant'],a:2}]},
+{title:'On Reading Slowly',
+ text:'To read slowly is not the same as to read passively. The slow reader is not one who fails to move quickly through a text, but one who declines to treat the text as a vehicle for information alone. What is sacrificed in speed is recovered in texture: the sentence is allowed to resonate, the ambiguity is permitted to stand rather than being resolved at the earliest opportunity. In an age that equates comprehension with rapid extraction, such patience can look like inefficiency. Yet the works we return to are rarely those we consumed most quickly; they are the ones that resisted us, that demanded a second and a third reading before yielding their meaning.',
+ qs:[{q:'How does the author define a slow reader?',opts:['Someone who reads slowly','Someone who treats text as more than information','Someone who cannot read fast','Someone who reads only classics'],a:1},
+     {q:'What is gained by slowness?',opts:['More information','Speed','Texture and ambiguity','Nothing'],a:2},
+     {q:'Which works do we return to?',opts:['The easiest ones','The shortest ones','The ones that resisted us','The most popular'],a:2}]}
+],
+listening:[
+{en:'Under no circumstances should the alarm be disabled.',ru:'Ни при каких обстоятельствах нельзя отключать сигнализацию.'},
+{en:'The findings, albeit preliminary, suggest a strong correlation.',ru:'Результаты, хотя и предварительные, указывают на сильную корреляцию.'},
+{en:'It is imperative that the report be submitted by Monday.',ru:'Необходимо, чтобы отчёт был сдан к понедельнику.'},
+{en:'Scarcely had the meeting begun when the power went out.',ru:'Едва началось совещание, как отключилось электричество.'},
+{en:'She was reluctant to comment, ostensibly because of the ongoing investigation.',ru:'Она неохотно давала комментарии, якобы из-за продолжающегося расследования.'},
+{en:'What the report fails to address is the question of accountability.',ru:'То, что отчёт не рассматривает, — это вопрос ответственности.'},
+{en:'Not until much later did we realize the extent of the damage.',ru:'Только гораздо позже мы осознали масштаб ущерба.'},
+{en:'There is no denying that the measure, however unpopular, was necessary.',ru:'Нельзя отрицать, что эта мера, какой бы непопулярной она ни была, была необходима.'}
+],
+writing:[
+{prompt:'Эссе (140–180 слов): «Социальные сети приносят больше вреда, чем пользы». Аргументы за и против + ваша позиция.',
+ hints:'It is frequently claimed that… Proponents argue… Conversely… Ultimately, I would contend…',
+ sample:'It is frequently claimed that social media does more harm than good. Proponents of this view point to rising levels of anxiety among young users, the spread of disinformation and the erosion of face-to-face communication. Conversely, defenders argue that these platforms democratize access to information and give a voice to groups that were previously unheard. In my view, neither position is entirely satisfactory. The technology itself is neutral; its effects depend on the incentives that govern it and on the literacy of its users. Ultimately, I would contend that the harm is real but not inevitable, and that regulation combined with digital education is a more promising response than outright rejection.',
+ checklist:['Proponents / Conversely','Ultimately, I would contend…','Не менее 140 слов']},
+{prompt:'Опишите тенденцию (например, рост удалённой работы) и её последствия (140–180 слов).',
+ hints:'Over the past decade… This shift has been driven by… The implications are twofold… It remains to be seen…',
+ sample:'Over the past decade, remote work has moved from a marginal arrangement to a mainstream practice. This shift has been driven by faster connectivity, the availability of collaborative software and, more recently, by necessity. The implications are twofold. On the one hand, employees gain flexibility and avoid lengthy commutes, which can improve well-being and productivity. On the other hand, the boundary between professional and private life becomes blurred, and younger employees may miss the informal mentoring that offices provide. Companies, in turn, face the challenge of maintaining a coherent culture across dispersed teams. It remains to be seen whether hybrid models will resolve these tensions or merely redistribute them.',
+ checklist:['The implications are twofold','It remains to be seen','Не менее 140 слов']}
+]
+},
+
+C2:{
+grammar:[
+{topic:'Inversion conditional',q:'Were it not for her support, I ___ .',opts:['would fail','would have failed','had failed','will fail'],a:1},
+{topic:'Would sooner',q:'He would sooner ___ than apologize.',opts:['die','to die','dying','died'],a:0},
+{topic:'Concessive',q:'___ as it may seem, the theory holds up under scrutiny.',opts:['Strange','Strangely','Stranger','Strangest'],a:0},
+{topic:'Inversion',q:'Not until much later ___ the truth.',opts:['she learned','did she learn','she did learn','learned she'],a:1},
+{topic:'So...that',q:'So ___ was the damage that the building had to be demolished.',opts:['extensive','extensively','extent','extending'],a:0}
+],
+vocab:[
+{en:'to belie',ru:'противоречить, опровергать',ex:'Her calm tone belied her fury.'},
+{en:'quintessential',ru:'типичнейший',ex:'He is the quintessential English gentleman.'},
+{en:'to ameliorate',ru:'облегчать, улучшать',ex:'The reforms did little to ameliorate poverty.'},
+{en:'esoteric',ru:'эзотерический, понятный немногим',ex:'The lecture drifted into esoteric detail.'},
+{en:'to juxtapose',ru:'сопоставлять',ex:'The film juxtaposes wealth and destitution.'},
+{en:'perfunctory',ru:'поверхностный, формальный',ex:'He gave the report a perfunctory glance.'},
+{en:'to galvanize',ru:'побуждать к действию',ex:'The speech galvanized the entire movement.'},
+{en:'ineffable',ru:'невыразимый',ex:'There was an ineffable sadness in his voice.'}
+],
+reading:[{title:'On Silence',
+ text:'Silence has long been regarded as the mere absence of sound, a deficiency to be remedied. Yet composers and monks alike have insisted that it possesses a positive character of its own. In the pauses between notes, music acquires its shape; in the intervals of speech, meaning is allowed to settle. What the modern world has largely forfeited is not quiet as such — one may still find it in forests and cathedrals — but the willingness to endure it. We fill every gap with commentary, as though an unanswered question were an intolerable debt. It is perhaps for this reason that silence, when it does occur, strikes us less as peace than as accusation.',
+ qs:[{q:'How has silence traditionally been seen?',opts:['As a presence','As an absence of sound','As music','As peace'],a:1},
+     {q:'What has the modern world lost?',opts:['Quiet places','The willingness to endure silence','Music','Speech'],a:1},
+     {q:'What does silence feel like to us now?',opts:['Peace','Accusation','Music','Boredom'],a:1}]}],
+listening:[
+{en:'Were it not for the delay, we would have arrived before dusk.',ru:'Если бы не задержка, мы бы приехали до темноты.'},
+{en:'So pervasive was the rumour that even the board began to doubt him.',ru:'Слух был настолько повсеместным, что даже совет начал сомневаться в нём.'}
+],
+writing:[{prompt:'Эссе (180–220 слов) о роли случайности в успехе.',
+ hints:'The relationship between… is seldom straightforward. It is tempting to… Yet… One might argue…',
+ sample:'The relationship between merit and success is seldom as straightforward as we like to imagine. It is tempting to attribute achievement to talent and effort alone, and to treat luck as a comforting fiction for those who have failed. Yet a moment’s reflection suggests otherwise. The circumstances of birth, the accident of timing, the chance encounter that alters a career — these are not marginal factors but structural ones.',
+ checklist:['It is tempting to… Yet…','One might argue…','Не менее 180 слов']}]
+}
+};
+
+/* ============================================================
+   SRS (SM-2)
+============================================================ */
+function getCard(word){
+  if(!S.cards[word]) S.cards[word] = {ef:2.5, interval:0, reps:0, due:0, lapses:0};
+  return S.cards[word];
+}
+function reviewCard(word, quality){
+  const c = getCard(word);
+  if(quality < 3){ c.reps = 0; c.lapses++; c.interval = 1; }
+  else {
+    if(c.reps === 0) c.interval = 1;
+    else if(c.reps === 1) c.interval = 6;
+    else c.interval = Math.round(c.interval * c.ef);
+    c.reps++;
+  }
+  c.ef = Math.max(1.3, c.ef + (0.1 - (5-quality)*(0.08 + (5-quality)*0.02)));
+  c.due = Date.now() + c.interval * DAY_MS;
+  return c;
+}
+function dueCards(limit){
+  const now = Date.now();
+  return Object.entries(S.cards)
+    .filter(([w,c]) => c.due <= now)
+    .sort((a,b) => a[1].due - b[1].due)
+    .slice(0, limit || 20);
+}
+
+/* ============================================================
+   СОСТОЯНИЕ
+============================================================ */
+function defaultState(){
+  return {
+    level:null, startLevel:null, day:0, xp:0, streak:0, lastDay:null,
+    testScore:null, startedAt:null,
+    cards:{}, weak:{}, intro:{},
+    history:[], achievements:[]
+  };
+}
+let S = loadState();
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const s = Object.assign(defaultState(), JSON.parse(raw));
+      if(!s.startLevel && s.level) s.startLevel = s.level;
+      return s;
+    }
+  }catch(e){}
+  return defaultState();
+}
+function saveState(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(S)); }catch(e){} }
+
+/* ============================================================
+   ФАЗЫ
+============================================================ */
+function getPhaseLevels(){
+  const startIdx = LEVELS.indexOf(S.startLevel || S.level || 'A2');
+  const phase = Math.min(PHASE_COUNT - 1, Math.floor(S.day / PHASE_DAYS));
+  const pIdx = Math.min(LEVELS.length - 1, startIdx + phase);
+  const sIdx = Math.min(LEVELS.length - 1, pIdx + 1);
+  return {
+    primary: LEVELS[pIdx],
+    secondary: LEVELS[sIdx],
+    phase
+  };
+}
+function currentMilestoneLevel(){
+  const startIdx = LEVELS.indexOf(S.startLevel || S.level || 'A2');
+  const phase = Math.min(PHASE_COUNT - 1, Math.floor(S.day / PHASE_DAYS));
+  const tIdx = Math.min(LEVELS.length - 1, startIdx + phase + 1);
+  return LEVELS[tIdx];
+}
+
+/* ============================================================
+   РОУТЕР
+============================================================ */
+let view = 'home';
+let L = null, T = null, cur = {};
+
+function go(v){ view = v; render(); window.scrollTo({top:0,behavior:'instant'}); }
+
+function render(){
+  document.getElementById('topbar').innerHTML = topbarHTML();
+  document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+  ({home:renderHome, test:renderTest, lesson:renderLesson, map:renderMap,
+    deck:renderDeck, vocab:renderVocab, stats:renderStats, settings:renderSettings,
+    result:()=>{}, checkpoint:()=>{}}[view] || renderHome)(main);
+}
+
+function topbarHTML(){
+  const lvl = S.level ? `<span class="badge lvl">${S.level} → ${TARGET_LEVEL}</span>` : `<span class="badge">уровень не определён</span>`;
+  const fire = S.streak > 0 ? `<span class="badge fire">🔥 ${S.streak}</span>` : '';
+  const xp = S.xp > 0 ? `<span class="badge">⚡ ${S.xp}</span>` : '';
+  const due = S.level ? (()=>{const d=dueCards(99).length; return d>0?`<span class="badge due">🃏 ${d}</span>`:''})() : '';
+  return `<div class="logo">EnglishPath</div><div class="spacer"></div>${xp}${due}${fire}${lvl}<button class="badge" style="cursor:pointer;border:none" data-action="open-settings">⚙️</button>`;
+}
+
+/* ============================================================
+   ГЛАВНАЯ
+============================================================ */
+function renderHome(main){
+  if(!S.level){ renderWelcome(main); return; }
+  const {primary, secondary, phase} = getPhaseLevels();
+  const pct = Math.round(S.day / TOTAL_DAYS * 100);
+  const month = Math.min(30, Math.floor(S.day / DAYS_PER_MONTH) + 1);
+  const milestone = currentMilestoneLevel();
+  const circ = 2 * Math.PI * 42;
+  const off = circ * (1 - S.day / TOTAL_DAYS);
+  const due = dueCards(99);
+  const weak = topWeak(3);
+  const phaseNames = ['A2+ → B1', 'B1 → B2', 'B2 → C1'];
+
+  main.innerHTML = `
+    <div class="card">
+      <div class="ring-wrap">
+        <div class="ring">
+          <svg width="96" height="96">
+            <circle cx="48" cy="48" r="42" fill="none" stroke="#1c1c1c" stroke-width="8"/>
+            <circle cx="48" cy="48" r="42" fill="none" stroke="url(#g1)" stroke-width="8"
+              stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${off}"/>
+            <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#a3e635"/><stop offset="100%" stop-color="#65a30d"/>
+            </linearGradient></defs>
+          </svg>
+          <div class="pct">${pct}%</div>
+        </div>
+        <div style="flex:1">
+          <div class="tiny">Путь к ${TARGET_LEVEL}</div>
+          <div class="big">${S.startLevel || S.level} → ${TARGET_LEVEL}</div>
+          <div class="muted" style="margin-top:4px">Месяц ${month} из 30 · занятие ${Math.min(S.day+1, TOTAL_DAYS)} из ${TOTAL_DAYS}</div>
+          <div class="muted" style="margin-top:2px">Фаза ${phase+1}/3 · ${phaseNames[phase]}</div>
+        </div>
+      </div>
+      <div class="bar mt" style="margin-top:16px"><i style="width:${pct}%"></i></div>
+    </div>
+
+    ${S.day >= TOTAL_DAYS ? completionCard() : `
+    <div class="card">
+      <div class="between">
+        <h2 style="margin:0">Занятие ${S.day + 1}</h2>
+        <span class="badge">≈ 15 мин</span>
+      </div>
+      <p class="mb" style="margin-top:8px">${lessonPreview(S.day, due.length)}</p>
+      <div class="muted" style="margin-bottom:12px">
+        Сейчас работаем над: <b style="color:var(--accent)">${primary}</b>
+        ${secondary !== primary ? ` · подтягиваем <b style="color:var(--accent)">${secondary}</b>` : ''}
+      </div>
+      <button class="btn" data-action="start-lesson">Начать занятие →</button>
+      ${(S.day + 1) % 16 === 0 ? `<button class="btn ghost mt" data-action="start-checkpoint">📋 Ежемесячный чек-поинт</button>` : ''}
+    </div>`}
+
+    ${due.length > 0 ? `
+    <div class="card flat">
+      <div class="between">
+        <div>
+          <h3 style="margin:0">🃏 К повторению: ${due.length}</h3>
+          <p class="muted" style="margin-top:4px">SRS подберёт карточки, которые пора освежить</p>
+        </div>
+      </div>
+    </div>` : ''}
+
+    ${weak.length > 0 ? `
+    <div class="card flat">
+      <h3>Слабые темы</h3>
+      <div class="tag-row">
+        ${weak.map(w => `<span class="pill hot">${esc(w.topic)} · ${w.acc}%</span>`).join('')}
+      </div>
+      <p class="muted mt" style="margin-top:10px">Эти темы чаще появляются в занятиях.</p>
+    </div>` : ''}
+
+    <div class="grid g4">
+      <div class="stat"><div class="v">${S.day}</div><div class="k">занятий</div></div>
+      <div class="stat"><div class="v">${S.streak}</div><div class="k">серия</div></div>
+      <div class="stat"><div class="v">${Object.keys(S.cards).length}</div><div class="k">карточек</div></div>
+      <div class="stat"><div class="v">${S.xp}</div><div class="k">XP</div></div>
+    </div>
+
+    <div class="card flat">
+      <h3>Вехи</h3>
+      <div class="milestone ${S.day >= PHASE_DAYS ? 'reached':''}">
+        🎯 <b>Месяц 10</b> · ${S.day >= PHASE_DAYS ? 'B1 достигнут' : 'цель — B1'}
+      </div>
+      <div class="milestone ${S.day >= PHASE_DAYS*2 ? 'reached':''}">
+        🎯 <b>Месяц 20</b> · ${S.day >= PHASE_DAYS*2 ? 'B2 достигнут' : 'цель — B2'}
+      </div>
+      <div class="milestone ${S.day >= TOTAL_DAYS ? 'reached':''}">
+        🏆 <b>Месяц 30</b> · ${S.day >= TOTAL_DAYS ? 'C1 достигнут' : 'цель — C1'}
+      </div>
+    </div>
+  `;
+}
+
+function renderWelcome(main){
+  main.innerHTML = `
+    <div class="card center">
+      <div style="font-size:56px;line-height:1;margin-bottom:12px">🎯</div>
+      <h1>EnglishPath</h1>
+      <p class="mb">Тест из 24 вопросов · около 6 минут. Определит стартовый уровень и построит программу <b>A2+ → C1</b> на 2.5 года.</p>
+      <button class="btn" data-action="start-test">Начать тест</button>
+    </div>
+    <div class="card">
+      <h3>Что внутри</h3>
+      <p>🃏 <b>SRS</b> — интервальные повторения (SM-2)</p>
+      <p>🎯 <b>Адаптивность</b> — слабые темы возвращаются чаще</p>
+      <p>📅 <b>30 месяцев</b> · 3 фазы: A2+→B1 (10 мес), B1→B2 (10 мес), B2→C1 (10 мес)</p>
+      <p>📋 <b>Ежемесячный чек-поинт</b> для проверки прогресса</p>
+      <p>📤 <b>Экспорт</b> карточек в Anki (CSV)</p>
+    </div>`;
+}
+
+function lessonPreview(day, dueCount){
+  const parts = [];
+  if(dueCount) parts.push(`${dueCount} карточек SRS`);
+  parts.push('3 задания грамматики');
+  parts.push('2–3 новых слова');
+  parts.push(day % 2 === 0 ? 'чтение' : 'аудирование');
+  if(day % 4 === 3) parts.push('письмо');
+  return parts.join(' · ') + '.';
+}
+
+function completionCard(){
+  return `<div class="card center ok">
+    <div style="font-size:56px">🏆</div>
+    <h2>Программа завершена</h2>
+    <p class="mb">30 месяцев пройдено. Вы должны быть на уровне <b style="color:var(--accent)">${TARGET_LEVEL}</b>.</p>
+    <p class="muted mb">Пройдите полный тест заново, чтобы подтвердить уровень.</p>
+    <button class="btn" data-action="retake-test">Пройти тест заново</button>
+  </div>`;
+}
+
+/* ============================================================
+   ТЕСТ
+============================================================ */
+function buildTest(){
+  const rnd = mulberry32(Date.now() % 100000);
+  const qs = [];
+  LEVELS.forEach(lvl => {
+    shuffle(DATA[lvl].grammar, rnd).slice(0, 4).forEach(g => {
+      const correct = g.opts[g.a];
+      const opts = shuffle(g.opts, rnd);
+      qs.push({lvl, q:g.q, opts, a:opts.indexOf(correct)});
+    });
+  });
+  return qs;
+}
+
+function renderTest(main){
+  if(!T) T = {qs: buildTest(), i: 0, answers: []};
+  if(T.i >= T.qs.length){ finishTest(); return; }
+  const q = T.qs[T.i];
+  const pct = Math.round(T.i / T.qs.length * 100);
+  main.innerHTML = `
+    <div class="card">
+      <div class="between" style="margin-bottom:10px">
+        <span class="muted">Вопрос ${T.i+1} из ${T.qs.length}</span>
+        <span class="badge">${q.lvl}</span>
+      </div>
+      <div class="bar mb"><i style="width:${pct}%"></i></div>
+      <h2 style="font-size:20px;margin-top:6px">${esc(q.q)}</h2>
+      <div class="options" id="testOptions">
+        ${q.opts.map((o,i)=>`<button class="opt" data-action="test-answer" data-idx="${i}">${esc(o)}</button>`).join('')}
+      </div>
+    </div>`;
+}
+
+function answerTest(idx){
+  const q = T.qs[T.i];
+  document.querySelectorAll('#testOptions .opt').forEach((b,i)=>{
+    b.disabled = true;
+    if(i === q.a) b.classList.add('correct');
+    else if(i === idx) b.classList.add('wrong');
+  });
+  T.answers.push({lvl:q.lvl, correct: idx === q.a});
+  setTimeout(()=>{ T.i++; render(); }, 550);
+}
+
+function finishTest(){
+  const scores = {};
+  LEVELS.forEach(l => scores[l] = {ok:0, total:0});
+  T.answers.forEach(a => { scores[a.lvl].total++; if(a.correct) scores[a.lvl].ok++; });
+  let reached = 0;
+  for(let i = 0; i < LEVELS.length; i++){
+    if(scores[LEVELS[i]].ok >= 3) reached = i;
+    else break;
+  }
+  const level = LEVELS[reached];
+  const totalCorrect = T.answers.filter(a => a.correct).length;
+
+  S.startLevel = level;
+  S.level = level;
+  S.testScore = totalCorrect;
+  S.day = 0; S.xp = 0; S.streak = 0; S.lastDay = null;
+  S.startedAt = today();
+  S.history = []; S.cards = {}; S.weak = {}; S.intro = {}; S.achievements = [];
+  saveState();
+  T = null;
+
+  document.getElementById('main').innerHTML = `
+    <div class="card center">
+      <div style="font-size:56px">🎯</div>
+      <div class="tiny">Ваш стартовый уровень</div>
+      <div class="big" style="font-size:56px;margin:6px 0;color:var(--accent)">${level}</div>
+      <p class="mb">Правильных ответов: ${totalCorrect} из 24</p>
+      <p class="mb">Цель: <b style="color:var(--accent)">${TARGET_LEVEL}</b> за 2.5 года.<br>
+        Программа: 30 месяцев · 480 занятий · 3 фазы.</p>
+      <button class="btn mt" data-action="go-home">Начать программу</button>
+    </div>`;
+}
+
+/* ============================================================
+   ГЕНЕРАЦИЯ УРОКА
+============================================================ */
+function buildLesson(){
+  const {primary, secondary, phase} = getPhaseLevels();
+  const P1 = DATA[primary];
+  const P2 = DATA[secondary];
+  const day = S.day;
+  const rnd = mulberry32(day * 7919 + primary.charCodeAt(0) * 131 + Date.now() % 1000);
+  const items = [];
+  const pick = (prob=0.35) => rnd() < prob ? P2 : P1;
+
+  // SRS (до 6 карточек)
+  dueCards(6).forEach(([word]) => {
+    const info = findWord(word, primary) || findWord(word, secondary) || findWord(word);
+    if(info){
+      const src = findWord(word, primary) ? P1 : (findWord(word, secondary) ? P2 : P1);
+      const distractors = shuffle(src.vocab.filter(x => x.ru !== info.ru), rnd).slice(0,3).map(x => x.ru);
+      const opts = shuffle([info.ru, ...distractors], rnd);
+      items.push({type:'srs', data:{...info, word}, opts, a:opts.indexOf(info.ru)});
+    }
+  });
+
+  // Грамматика 3 задания
+  const gPool = [];
+  P1.grammar.forEach(g => gPool.push({...g, w: topicWeight(g.topic), src:'primary'}));
+  P2.grammar.forEach(g => gPool.push({...g, w: topicWeight(g.topic) * 0.5, src:'secondary'}));
+  const picked = weightedSample(gPool, 3, rnd);
+  picked.forEach(g => {
+    const correct = g.opts[g.a];
+    const opts = shuffle(g.opts, rnd);
+    items.push({type:'grammar', data:{q:g.q, opts, a:opts.indexOf(correct), topic:g.topic}});
+  });
+
+  // Новые слова 2–3
+  const newWords1 = P1.vocab.filter(w => !S.intro[w.en]);
+  const newWords2 = P2.vocab.filter(w => !S.intro[w.en]);
+  const newPool = [...shuffle(newWords1, rnd).slice(0,2), ...shuffle(newWords2, rnd).slice(0,1)];
+  newPool.slice(0,3).forEach(w => {
+    S.intro[w.en] = true;
+    items.push({type:'intro', data:w});
+  });
+
+  // Чтение / аудирование
+  if(day % 2 === 0){
+    const src = pick();
+    const r = src.reading[Math.floor(rnd() * src.reading.length)];
+    items.push({type:'reading', data:r});
+  } else {
+    const src = pick(0.4);
+    const ls = shuffle(src.listening, rnd).slice(0,4);
+    ls.forEach(s => {
+      const others = src.listening.filter(x => x.ru !== s.ru);
+      const wrong = shuffle(others, rnd).slice(0,3).map(x=>x.ru);
+      const opts = shuffle([s.ru, ...wrong], rnd);
+      items.push({type:'listening', data:{en:s.en, opts, a:opts.indexOf(s.ru)}});
+    });
+  }
+
+  // Письмо раз в 4 дня
+  if(day % 4 === 3){
+    const src = pick(0.4);
+    const w = src.writing[Math.floor(rnd() * src.writing.length)];
+    items.push({type:'writing', data:w});
+  }
+
+  return items;
+}
+
+function findWord(en, lvl){
+  const levels = lvl ? [lvl] : LEVELS;
+  for(const l of levels){
+    if(!DATA[l]) continue;
+    const w = DATA[l].vocab.find(x => x.en === en);
+    if(w) return w;
+  }
+  return null;
+}
+
+function topicWeight(topic){
+  const w = S.weak[topic];
+  if(!w) return 1;
+  const total = w.right + w.wrong;
+  if(total === 0) return 1;
+  const acc = w.right / total;
+  return 1 + (1 - acc) * 2;
+}
+
+function weightedSample(arr, n, rnd){
+  const pool = arr.slice();
+  const out = [];
+  while(out.length < n && pool.length){
+    const total = pool.reduce((s,x) => s + x.w, 0);
+    let r = rnd() * total;
+    for(let i = 0; i < pool.length; i++){
+      r -= pool[i].w;
+      if(r <= 0){ out.push(pool.splice(i,1)[0]); break; }
+    }
+  }
+  return out;
+}
+
+function topWeak(n){
+  return Object.entries(S.weak)
+    .map(([topic, s]) => ({topic, acc: Math.round(s.right / (s.right+s.wrong) * 100), total: s.right+s.wrong}))
+    .filter(x => x.total >= 2 && x.acc < 80)
+    .sort((a,b) => a.acc - b.acc)
+    .slice(0, n);
+}
+
+/* ============================================================
+   УРОК
+============================================================ */
+function startLesson(){
+  if(!S.level){ go('test'); return; }
+  if(S.day >= TOTAL_DAYS) return;
+  L = {items: buildLesson(), idx: 0, correct: 0, wrong: 0};
+  cur = {correct:-1, answered:false};
+  go('lesson');
+}
+
+function renderLesson(main){
+  if(!L){ go('home'); return; }
+  if(L.idx >= L.items.length){ finishLesson(); return; }
+
+  const item = L.items[L.idx];
+  const pct = Math.round(L.idx / L.items.length * 100);
+  cur = {correct:-1, answered:false};
+
+  const head = `<div class="card" style="padding:14px">
+    <div class="between" style="margin-bottom:8px">
+      <span class="muted">Шаг ${L.idx+1} из ${L.items.length}</span>
+      <span class="badge lvl">${S.level}</span>
+    </div>
+    <div class="bar"><i style="width:${pct}%"></i></div>
+  </div>`;
+
+  let body = '';
+
+  if(item.type === 'srs'){
+    cur.correct = item.a;
+    cur.srsWord = item.data.word;
+    cur.srsInfo = item.data;
+    body = `
+      <div class="card">
+        <div class="step-label">Повторение (SRS)</div>
+        <div class="row" style="gap:12px;align-items:center">
+          <div class="word-big">${esc(item.data.en)}</div>
+          <button class="speak" data-action="speak" data-text="${esc(item.data.en)}">🔊</button>
+        </div>
+        <p style="margin-top:4px">Выберите перевод</p>
+        <div class="options" id="opts">
+          ${item.opts.map((o,i)=>`<button class="opt" data-action="answer" data-idx="${i}">${esc(o)}</button>`).join('')}
+        </div>
+        <div id="feedback"></div>
+      </div>`;
+  }
+  else if(item.type === 'grammar'){
+    cur.correct = item.data.a;
+    cur.topic = item.data.topic;
+    body = `
+      <div class="card">
+        <div class="step-label">Грамматика · ${esc(item.data.topic)}</div>
+        <h2 style="font-size:20px">${esc(item.data.q)}</h2>
+        <div class="options" id="opts">
+          ${item.data.opts.map((o,i)=>`<button class="opt" data-action="answer" data-idx="${i}">${esc(o)}</button>`).join('')}
+        </div>
+        <div id="feedback"></div>
+      </div>`;
+  }
+  else if(item.type === 'intro'){
+    body = `
+      <div class="card">
+        <div class="step-label">Новое слово</div>
+        <div class="row" style="gap:12px;align-items:center">
+          <div class="word-big">${esc(item.data.en)}</div>
+          <button class="speak" data-action="speak" data-text="${esc(item.data.en)}">🔊</button>
+        </div>
+        <p style="margin-top:8px;font-size:16px"><b>${esc(item.data.ru)}</b></p>
+        <p class="mt" style="font-style:italic;color:var(--muted)">${esc(item.data.ex)}</p>
+        <button class="btn mt" data-action="next">Запомнил →</button>
+      </div>`;
+  }
+  else if(item.type === 'reading'){
+    body = `
+      <div class="card">
+        <div class="step-label">Чтение</div>
+        <h2>${esc(item.data.title)}</h2>
+        <div class="passage">${esc(item.data.text)}</div>
+        <div id="rq">
+          ${item.data.qs.map((q, qi) => `
+            <div style="margin-bottom:18px" data-q="${qi}">
+              <p style="color:var(--text);font-weight:600;margin-bottom:10px">${qi+1}. ${esc(q.q)}</p>
+              <div class="options">
+                ${q.opts.map((o,oi)=>`<button class="opt" data-action="reading-answer" data-q="${qi}" data-idx="${oi}">${esc(o)}</button>`).join('')}
+              </div>
+            </div>`).join('')}
+        </div>
+        <button class="btn mt" id="nextBtn" data-action="next" disabled>Далее</button>
+      </div>`;
+  }
+  else if(item.type === 'listening'){
+    cur.correct = item.data.a;
+    body = `
+      <div class="card">
+        <div class="step-label">Аудирование</div>
+        <p style="margin-bottom:14px">Прослушайте фразу и выберите перевод.</p>
+        <button class="btn ghost" data-action="speak" data-text="${esc(item.data.en)}">🔊 Прослушать</button>
+        <div class="options" id="opts">
+          ${item.data.opts.map((o,i)=>`<button class="opt" data-action="answer" data-idx="${i}">${esc(o)}</button>`).join('')}
+        </div>
+        <div id="feedback"></div>
+      </div>`;
+  }
+  else if(item.type === 'writing'){
+    body = `
+      <div class="card">
+        <div class="step-label">Письмо</div>
+        <h2 style="font-size:18px">${esc(item.data.prompt)}</h2>
+        <p style="margin-bottom:12px"><b>Подсказки:</b> ${esc(item.data.hints)}</p>
+        <textarea id="writingBox" placeholder="Напишите текст на английском…"></textarea>
+        <div class="between" style="margin-top:8px">
+          <span class="muted"><span id="wc">0</span> слов</span>
+          <button class="speak" data-action="check-writing">Проверить</button>
+        </div>
+        <div id="writingFeedback"></div>
+        <button class="btn mt ghost" data-action="show-sample">Показать пример</button>
+        <div id="sampleBox"></div>
+        <button class="btn mt" data-action="next">Готово, дальше</button>
+      </div>`;
+  }
+
+  main.innerHTML = head + body;
+
+  if(item.type === 'writing'){
+    const box = document.getElementById('writingBox');
+    if(box) box.addEventListener('input', () => {
+      const wc = box.value.trim().split(/\s+/).filter(Boolean).length;
+      document.getElementById('wc').textContent = wc;
+    });
+  }
+}
+
+function checkWriting(){
+  const box = document.getElementById('writingBox');
+  const text = box.value.trim();
+  const issues = [];
+  const wc = text.split(/\s+/).filter(Boolean).length;
+  if(wc < 20) issues.push('Слишком короткий текст — не менее 30 слов.');
+  if(/[а-яА-Я]/.test(text)) issues.push('Обнаружены русские буквы.');
+  if(/\bi am agree\b/i.test(text)) issues.push('«I am agree» → «I agree».');
+  if(/\bmore better\b/i.test(text)) issues.push('«more better» → «better».');
+  if(/\bdon’t has\b|\bdon't has\b/i.test(text)) issues.push('«don’t has» → «doesn’t have».');
+  if(/\binformations\b/i.test(text)) issues.push('«informations» → «information».');
+  if(!/[.?!]/.test(text)) issues.push('Добавьте знаки препинания.');
+  if(!/\b(I|we|they|he|she|it|you)\b/i.test(text)) issues.push('Проверьте наличие подлежащего.');
+
+  const item = L.items[L.idx];
+  const html = issues.length === 0
+    ? `<div class="fb ok" style="margin-top:12px">
+        <b>✅ Базовые проверки пройдены</b>
+        <div style="margin-top:8px;color:var(--muted)">
+          ${item.data.checklist.map(c => '✓ ' + esc(c)).join('<br>')}
+        </div>
+        <p class="muted" style="margin-top:8px">Для глубокой проверки — Grammarly / LanguageTool.</p>
+      </div>`
+    : `<div class="fb bad" style="margin-top:12px">
+        <b>Замечания:</b>
+        <ul style="margin:8px 0 0 18px;color:var(--text)">
+          ${issues.map(i => `<li>${esc(i)}</li>`).join('')}
+        </ul>
+      </div>`;
+  document.getElementById('writingFeedback').innerHTML = html;
+}
+
+function answerStep(idx){
+  if(cur.answered) return;
+  cur.answered = true;
+  document.querySelectorAll('#opts .opt').forEach((b,i)=>{
+    b.disabled = true;
+    if(i === cur.correct) b.classList.add('correct');
+    else if(i === idx) b.classList.add('wrong');
+  });
+  const ok = idx === cur.correct;
+
+  if(cur.srsWord) reviewCard(cur.srsWord, ok ? 4 : 1);
+  if(cur.topic){
+    S.weak[cur.topic] = S.weak[cur.topic] || {right:0, wrong:0};
+    if(ok) S.weak[cur.topic].right++; else S.weak[cur.topic].wrong++;
+  }
+  if(ok) L.correct++; else L.wrong++;
+
+  const item = L.items[L.idx];
+  let extra = '';
+  if(item.type === 'srs'){
+    extra = `<div style="margin-top:6px"><b>${esc(cur.srsInfo.en)}</b> — ${esc(cur.srsInfo.ru)}<br>
+      <span style="font-style:italic;color:var(--muted)">${esc(cur.srsInfo.ex)}</span></div>`;
+    const c = getCard(cur.srsWord);
+    extra += `<div class="muted" style="margin-top:6px">Следующее повторение: через ${c.interval} дн.</div>`;
+  }
+
+  document.getElementById('feedback').innerHTML = `
+    <div class="fb ${ok ? 'ok' : 'bad'}">
+      <b>${ok ? '✅ Верно!' : '❌ Неверно'}</b>${extra}
+    </div>
+    <button class="btn mt" data-action="next">Далее →</button>`;
+  saveState();
+}
+
+function answerReading(qi, oi){
+  const item = L.items[L.idx];
+  const q = item.data.qs[qi];
+  const wrap = document.querySelector(`[data-q="${qi}"]`);
+  wrap.querySelectorAll('.opt').forEach((b,i)=>{
+    b.disabled = true;
+    if(i === q.a) b.classList.add('correct');
+    else if(i === oi) b.classList.add('wrong');
+  });
+  if(oi === q.a) L.correct++; else L.wrong++;
+
+  const allAnswered = [...document.querySelectorAll('#rq [data-q]')]
+    .every(el => [...el.querySelectorAll('.opt')].every(b => b.disabled));
+  if(allAnswered) document.getElementById('nextBtn').disabled = false;
+}
+
+function nextStep(){ L.idx++; render(); }
+
+/* ============================================================
+   ЗАВЕРШЕНИЕ
+============================================================ */
+function finishLesson(){
+  const total = L.correct + L.wrong;
+  const acc = total ? Math.round(L.correct/total*100) : 100;
+  const xp = 20 + L.correct * 5 + (acc >= 80 ? 15 : 0);
+
+  S.xp += xp;
+  S.day = Math.min(TOTAL_DAYS, S.day + 1);
+
+  const t = today();
+  if(S.lastDay !== t){
+    const y = new Date(Date.now() - DAY_MS).toISOString().slice(0,10);
+    S.streak = (S.lastDay === y) ? S.streak + 1 : 1;
+    S.lastDay = t;
+  }
+
+  // Обновляем S.level по достижении вехи
+  const milestone = Math.min(PHASE_COUNT, Math.floor(S.day / PHASE_DAYS));
+  if(milestone > 0){
+    const startIdx = LEVELS.indexOf(S.startLevel);
+    const newLvl = LEVELS[Math.min(LEVELS.length - 1, startIdx + milestone)];
+    S.level = newLvl;
+  }
+
+  const last = S.history[S.history.length-1];
+  if(last && last.date === t) last.xp += xp;
+  else S.history.push({date:t, xp});
+  if(S.history.length > 60) S.history = S.history.slice(-60);
+
+  checkAchievements();
+  saveState();
+
+  const finished = S.day >= TOTAL_DAYS;
+  const {phase} = getPhaseLevels();
+  const phaseNames = ['A2+ → B1', 'B1 → B2', 'B2 → C1'];
+  const justReachedPhase = S.day === PHASE_DAYS || S.day === PHASE_DAYS * 2;
+
+  document.getElementById('main').innerHTML = `
+    <div class="card center ${finished ? 'ok' : ''}">
+      <div style="font-size:52px">${finished ? '🏆' : justReachedPhase ? '🎯' : '✨'}</div>
+      <h1>${finished ? 'Финиш!' : justReachedPhase ? 'Веха достигнута!' : 'Занятие завершено!'}</h1>
+      <p class="mb">Правильно: ${L.correct} из ${total} (${acc}%)</p>
+      <div class="grid g3" style="margin:20px 0">
+        <div class="stat"><div class="v">+${xp}</div><div class="k">XP</div></div>
+        <div class="stat"><div class="v">${S.streak}</div><div class="k">серия</div></div>
+        <div class="stat"><div class="v">${Object.keys(S.cards).length}</div><div class="k">карточек</div></div>
+      </div>
+      ${justReachedPhase ? `<p class="mb">Поздравляем! Вы завершили фазу ${phase}<br>(${phaseNames[phase-1]}).</p>` : ''}
+      ${finished
+        ? `<p class="mb">Вы прошли всю программу A2+ → C1!</p>
+           <button class="btn" data-action="retake-test">Пройти тест заново</button>`
+        : `<button class="btn" data-action="go-home">На главную</button>
+           <button class="btn ghost" data-action="start-lesson">Ещё занятие</button>`}
+    </div>`;
+  L = null;
+  view = 'result';
+}
+
+function checkAchievements(){
+  const list = [
+    {id:'first_lesson', cond:S.day >= 1},
+    {id:'streak_3', cond:S.streak >= 3},
+    {id:'streak_7', cond:S.streak >= 7},
+    {id:'streak_30', cond:S.streak >= 30},
+    {id:'cards_50', cond:Object.keys(S.cards).length >= 50},
+    {id:'phase_b1', cond:S.day >= PHASE_DAYS},
+    {id:'phase_b2', cond:S.day >= PHASE_DAYS * 2},
+    {id:'phase_c1', cond:S.day >= TOTAL_DAYS}
+  ];
+  list.forEach(a => {
+    if(a.cond && !S.achievements.includes(a.id)) S.achievements.push(a.id);
+  });
+}
+
+/* ============================================================
+   КАРТА (30 месяцев, 3 фазы)
+============================================================ */
+function renderMap(main){
+  if(!S.level){ renderWelcome(main); return; }
+  const phaseNames = ['A2+ → B1', 'B1 → B2', 'B2 → C1'];
+  const phaseGoal = ['B1', 'B2', 'C1'];
+
+  let html = `<div class="card"><h2>Программа · 30 месяцев</h2>
+    <p>480 занятий. Три фазы по 10 месяцев. Каждое занятие — SRS, грамматика, слова, чтение/аудио, письмо.</p></div>`;
+
+  for(let p = 0; p < 3; p++){
+    const phStart = p * PHASE_DAYS;
+    const phEnd = phStart + PHASE_DAYS;
+    const isActive = S.day >= phStart && S.day < phEnd;
+    const isDone = S.day >= phEnd;
+    const doneInPhase = Math.max(0, Math.min(PHASE_DAYS, S.day - phStart));
+    const phasePct = Math.round(doneInPhase / PHASE_DAYS * 100);
+
+    html += `<div class="phase">
+      <div class="phase-head ${isActive?'active':''}">
+        <div style="flex:1">
+          <div class="ph-title">Фаза ${p+1} · ${phaseNames[p]}</div>
+          <div class="ph-goal">Месяцы ${p*10+1}–${(p+1)*10} · цель ${phaseGoal[p]}</div>
+        </div>
+        <div class="ph-prog">${isDone?'✓':phasePct + '%'}</div>
+      </div>`;
+
+    for(let m = 0; m < 10; m++){
+      const monthIdx = p * 10 + m;
+      const start = monthIdx * DAYS_PER_MONTH;
+      const done = Math.max(0, Math.min(DAYS_PER_MONTH, S.day - start));
+      const isCurMonth = S.day >= start && S.day < start + DAYS_PER_MONTH;
+      let dots = '';
+      for(let d = 0; d < DAYS_PER_MONTH; d++){
+        const g = start + d;
+        let cls = 'dot';
+        if(g < S.day) cls += ' done';
+        else if(g === S.day) cls += ' next';
+        dots += `<div class="${cls}"></div>`;
+      }
+      html += `<div class="month-row ${isCurMonth?'current':''}">
+        <span class="mn">Мес. ${monthIdx+1}</span>
+        <div class="dots">${dots}</div>
+        <span class="mg">${done}/${DAYS_PER_MONTH}</span>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+  main.innerHTML = html;
+}
+
+/* ============================================================
+   КОЛОДА (SRS)
+============================================================ */
+function renderDeck(main){
+  if(!S.level){ renderWelcome(main); return; }
+  const cards = Object.entries(S.cards)
+    .map(([word, c]) => ({word, info: findWord(word), c}))
+    .sort((a,b) => a.c.due - b.c.due);
+
+  const now = Date.now();
+  const due = cards.filter(x => x.c.due <= now).length;
+  const soon = cards.filter(x => x.c.due > now && x.c.due < now + 7*DAY_MS).length;
+
+  main.innerHTML = `
+    <div class="card">
+      <h2>Колода SRS</h2>
+      <p>Алгоритм SM-2. Оценка «верно/неверно» влияет на интервал.</p>
+      <div class="grid g3 mt">
+        <div class="stat"><div class="v">${cards.length}</div><div class="k">всего</div></div>
+        <div class="stat"><div class="v">${due}</div><div class="k">к повторению</div></div>
+        <div class="stat"><div class="v">${soon}</div><div class="k">на неделе</div></div>
+      </div>
+      ${due > 0 ? `<button class="btn mt" data-action="review-due">Повторить ${due} сейчас</button>` : ''}
+    </div>
+    <div class="card">
+      <h3>Экспорт</h3>
+      <button class="btn ghost small" data-action="export-anki">📤 Экспорт в Anki (CSV)</button>
+    </div>
+    <div class="card">
+      <h3>Все карточки</h3>
+      ${cards.length === 0 ? '<p class="muted">Пока пусто — начните занятие.</p>' : ''}
+      ${cards.map(({word, info, c}) => {
+        const d = new Date(c.due);
+        const dueText = c.due <= now ? 'сейчас' : d.toLocaleDateString();
+        const cls = c.due <= now ? 'hot' : c.interval >= 21 ? 'cool' : 'warm';
+        return `<div class="vrow">
+          <div style="flex:1">
+            <div class="en">${esc(word)} ${info ? `<span class="muted" style="font-weight:400">— ${esc(info.ru)}</span>`:''}</div>
+            <div class="ex">повторение: ${dueText} · интервал ${c.interval} дн · EF ${c.ef.toFixed(2)}</div>
+          </div>
+          <span class="pill ${cls}">${c.due <= now ? 'due' : 'ok'}</span>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function exportAnki(){
+  const rows = [];
+  Object.entries(S.cards).forEach(([word]) => {
+    const info = findWord(word);
+    if(!info) return;
+    rows.push(`${word};${info.ru};${info.ex}`);
+  });
+  if(!rows.length){ alert('Колода пуста.'); return; }
+  const csv = rows.join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `englishpath_anki_${today()}.csv`;
+  a.click();
+}
+
+function startReviewDue(){
+  const due = dueCards(20);
+  if(!due.length){ alert('Сейчас нечего повторять.'); return; }
+  const rnd = mulberry32(Date.now() % 10000);
+  const items = [];
+  due.forEach(([word]) => {
+    const info = findWord(word);
+    if(!info) return;
+    const src = findWord(word, 'B1') ? DATA.B1 : findWord(word, 'B2') ? DATA.B2 : DATA.C1;
+    const dist = shuffle(src.vocab.filter(x => x.ru !== info.ru), rnd).slice(0,3).map(x=>x.ru);
+    const opts = shuffle([info.ru, ...dist], rnd);
+    items.push({type:'srs', data:{...info, word}, opts, a:opts.indexOf(info.ru)});
+  });
+  L = {items, idx:0, correct:0, wrong:0, isReview:true};
+  cur = {correct:-1, answered:false};
+  go('lesson');
+}
+
+/* ============================================================
+   СЛОВАРЬ
+============================================================ */
+function renderVocab(main){
+  if(!S.level){ renderWelcome(main); return; }
+  const {primary, secondary} = getPhaseLevels();
+  const words = [...DATA[primary].vocab, ...(secondary !== primary ? DATA[secondary].vocab : [])];
+  main.innerHTML = `
+    <div class="card">
+      <h2>Словарь текущей фазы</h2>
+      <p>${words.length} слов · ${primary}${secondary !== primary ? ' + ' + secondary : ''}</p>
+    </div>
+    <div class="card">
+      ${words.map(w => {
+        const inDeck = !!S.cards[w.en];
+        return `<div class="vrow">
+          <div style="flex:1">
+            <div class="en">${esc(w.en)} ${inDeck?'<span class="pill cool">в колоде</span>':''}</div>
+            <div class="ru">${esc(w.ru)}</div>
+            <div class="ex">${esc(w.ex)}</div>
+          </div>
+          <button class="mini" data-action="speak" data-text="${esc(w.en)}">🔊</button>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+/* ============================================================
+   СТАТИСТИКА
+============================================================ */
+function renderStats(main){
+  const pct = Math.round(S.day / TOTAL_DAYS * 100);
+  const last7 = S.history.slice(-7);
+  const maxXp = Math.max(1, ...last7.map(h => h.xp));
+  const weak = topWeak(6);
+  const cards = Object.values(S.cards);
+  const mature = cards.filter(c => c.interval >= 21).length;
+  const young = cards.filter(c => c.interval > 0 && c.interval < 21).length;
+  const fresh = cards.filter(c => c.reps === 0).length;
+  const achievements = [
+    {id:'first_lesson', name:'Первый шаг', icon:'👣'},
+    {id:'streak_3', name:'3 дня', icon:'🔥'},
+    {id:'streak_7', name:'Неделя', icon:'💪'},
+    {id:'streak_30', name:'Месяц', icon:'🏅'},
+    {id:'cards_50', name:'50 карточек', icon:'🃏'},
+    {id:'phase_b1', name:'B1 достигнут', icon:'🟢'},
+    {id:'phase_b2', name:'B2 достигнут', icon:'🔵'},
+    {id:'phase_c1', name:'C1 достигнут', icon:'🟣'}
+  ];
+
+  main.innerHTML = `
+    <div class="card">
+      <h2>Прогресс</h2>
+      <div class="bar mb"><i style="width:${pct}%"></i></div>
+      <div class="between"><span class="muted">Пройдено</span><b>${S.day} / ${TOTAL_DAYS}</b></div>
+      <div class="between" style="margin-top:6px"><span class="muted">Осталось</span><b>${TOTAL_DAYS - S.day}</b></div>
+      ${S.startedAt ? `<div class="between" style="margin-top:6px"><span class="muted">Старт</span><b>${S.startedAt}</b></div>`:''}
+    </div>
+
+    <div class="grid g4">
+      <div class="stat"><div class="v">${S.xp}</div><div class="k">XP</div></div>
+      <div class="stat"><div class="v">${S.streak}</div><div class="k">серия</div></div>
+      <div class="stat"><div class="v">${cards.length}</div><div class="k">карточек</div></div>
+      <div class="stat"><div class="v">${mature}</div><div class="k">в памяти</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Колода по зрелости</h3>
+      <div class="between"><span class="muted">Новые</span><b>${fresh}</b></div>
+      <div class="between" style="margin-top:6px"><span class="muted">Молодые (1–20 дн)</span><b>${young}</b></div>
+      <div class="between" style="margin-top:6px"><span class="muted">Зрелые (21+ дн)</span><b>${mature}</b></div>
+    </div>
+
+    ${last7.length ? `
+    <div class="card">
+      <h3>Активность</h3>
+      <div class="chart">
+        ${last7.map(h => `<div>
+          <div class="b" style="height:${Math.max(6, h.xp/maxXp*80)}px"></div>
+          <span class="l">${h.date.slice(5)}</span>
+        </div>`).join('')}
+      </div>
+    </div>`:''}
+
+    ${weak.length ? `
+    <div class="card">
+      <h3>Слабые темы</h3>
+      ${weak.map(w => `<div class="between" style="padding:8px 0">
+        <span>${esc(w.topic)}</span>
+        <span class="pill ${w.acc < 50 ? 'hot' : 'warm'}">${w.acc}%</span>
+      </div>`).join('')}
+    </div>`:''}
+
+    <div class="card">
+      <h3>Достижения</h3>
+      <div class="tag-row">
+        ${achievements.map(a => `<span class="pill ${S.achievements.includes(a.id)?'cool':''}">${a.icon} ${a.name}</span>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+/* ============================================================
+   НАСТРОЙКИ
+============================================================ */
+function renderSettings(main){
+  main.innerHTML = `
+    <div class="card">
+      <h2>Настройки</h2>
+      <button class="btn ghost small" data-action="go-home">← Назад</button>
+    </div>
+    <div class="card">
+      <h3>Экспорт</h3>
+      <button class="btn ghost small" data-action="export-anki">📤 Экспорт колоды в Anki (CSV)</button>
+    </div>
+    <div class="card">
+      <h3>Опасная зона</h3>
+      <button class="btn ghost small" data-action="retake-test">Перепройти тест (сброс программы)</button>
+      <button class="btn danger small" data-action="reset">Удалить весь прогресс</button>
+    </div>`;
+}
+
+/* ============================================================
+   ЕЖЕМЕСЯЧНЫЙ ЧЕК-ПОИНТ
+============================================================ */
+function startCheckpoint(){
+  if(!S.level){ go('test'); return; }
+  const {primary, secondary} = getPhaseLevels();
+  const rnd = mulberry32(Date.now() % 7777);
+  const qs = [];
+  [...DATA[primary].grammar, ...DATA[secondary].grammar].forEach(g => {
+    const correct = g.opts[g.a];
+    const opts = shuffle(g.opts, rnd);
+    qs.push({topic:g.topic, q:g.q, opts, a:opts.indexOf(correct)});
+  });
+  const sample = shuffle(qs, rnd).slice(0, 8);
+  L = {items: sample.map(q => ({type:'grammar', data:q})), idx:0, correct:0, wrong:0, isCheckpoint:true};
+  cur = {correct:-1, answered:false};
+  go('lesson');
+}
+
+/* ============================================================
+   СОБЫТИЯ
+============================================================ */
+document.getElementById('nav').addEventListener('click', e => {
+  const btn = e.target.closest('button[data-view]');
+  if(!btn) return;
+  go(btn.dataset.view);
+});
+
+document.getElementById('main').addEventListener('click', e => {
+  const el = e.target.closest('[data-action]');
+  if(!el) return;
+  const a = el.dataset.action;
+
+  if(a === 'speak'){ speak(el.dataset.text); return; }
+  if(a === 'open-settings'){ go('settings'); return; }
+  if(a === 'go-home'){ go('home'); return; }
+  if(a === 'start-test'){ T = null; go('test'); return; }
+  if(a === 'test-answer'){ answerTest(+el.dataset.idx); return; }
+  if(a === 'start-lesson'){ startLesson(); return; }
+  if(a === 'start-checkpoint'){ startCheckpoint(); return; }
+  if(a === 'answer'){ answerStep(+el.dataset.idx); return; }
+  if(a === 'reading-answer'){ answerReading(+el.dataset.q, +el.dataset.idx); return; }
+  if(a === 'next'){ nextStep(); return; }
+  if(a === 'check-writing'){ checkWriting(); return; }
+  if(a === 'show-sample'){
+    const item = L.items[L.idx];
+    document.getElementById('sampleBox').innerHTML = `
+      <div class="fb" style="margin-top:14px">
+        <b>Пример:</b><br>${esc(item.data.sample)}
+        <div style="margin-top:8px"><button class="speak" data-action="speak" data-text="${esc(item.data.sample)}">🔊</button></div>
+      </div>`;
+    return;
+  }
+  if(a === 'review-due'){ startReviewDue(); return; }
+  if(a === 'export-anki'){ exportAnki(); return; }
+  if(a === 'retake-test'){
+    if(confirm('Пройти тест заново? Программа и карточки будут сброшены.')){
+      T = null; L = null;
+      go('test');
+    }
+    return;
+  }
+  if(a === 'reset'){
+    if(confirm('Удалить ВЕСЬ прогресс?')){
+      localStorage.removeItem(STORAGE_KEY);
+      S = defaultState();
+      L = null; T = null;
+      view = 'home';
+      render();
+    }
+    return;
+  }
+});
+
+if('speechSynthesis' in window) speechSynthesis.onvoiceschanged = () => {};
+render();
+</script>
+</body>
+</html>
